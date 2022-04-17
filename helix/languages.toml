@@ -1,0 +1,8 @@
+[[language]]
+name = "rust"
+language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"] }
+
+[[language]]
+name = "c"
+auto-format = true
+indent = { tab-width = 4, unit = "    " }
