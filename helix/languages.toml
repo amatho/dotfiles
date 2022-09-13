@@ -1,6 +1,7 @@
 [[language]]
 name = "rust"
 language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"] }
+auto-format = false
 
 [[language]]
 name = "c"
