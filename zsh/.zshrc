@@ -1,3 +1,9 @@
+source "$ZDOTDIR/zsh_platform.sh"
+
+export NVM_LAZY_LOAD=true
+source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+antidote load
+
 autoload -Uz compinit
 
 # Generate completions once a day
@@ -12,10 +18,6 @@ unsetopt EXTENDEDGLOB
 compinit -C
 
 zstyle ':completion:*' menu select
-
-export NVM_LAZY_LOAD=true
-source "$ZDOTDIR/zsh_plugins.sh"
-source "$ZDOTDIR/zsh_platform.sh"
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
     alias ls='ls -G'
