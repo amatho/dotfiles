@@ -1,7 +1,7 @@
 source "$ZDOTDIR/zsh_platform.sh"
 
 export NVM_LAZY_LOAD=true
-source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load
 
 autoload -Uz compinit
