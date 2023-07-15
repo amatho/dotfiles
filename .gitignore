@@ -10,5 +10,5 @@ zsh/.zcompdump.zwc
 zsh/.zcompcache/
 zsh/.zsh_sessions/
 zsh/.zsh_history
-zsh/zsh_plugins.sh
+zsh/.zsh_plugins.zsh
 zsh/zsh_platform.sh
