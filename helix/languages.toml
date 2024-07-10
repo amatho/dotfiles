@@ -1,8 +1,12 @@
+[language-server.rust-analyzer]
+command = "rustup"
+args = ["run", "nightly", "rust-analyzer"]
+config = { check = { command = "clippy" } }
+
 [[language]]
 name = "rust"
-language-server = { command = "rustup", args = ["run", "nightly", "rust-analyzer"] }
 auto-format = true
-config = { check = { command = "clippy" } }
+language-servers = [ "rust-analyzer" ]
 
 [[language]]
 name = "c"
