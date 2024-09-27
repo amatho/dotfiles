@@ -12,3 +12,9 @@ zsh/.zsh_sessions/
 zsh/.zsh_history
 zsh/.zsh_plugins.zsh
 zsh/zsh_platform.sh
+
+# Fish
+fish/fish_variables
+fish/conf.d/platform.fish
+fish/functions/
+fish/completions/
