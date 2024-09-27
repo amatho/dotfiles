@@ -46,8 +46,7 @@ alias gsw='git switch'
 alias gcl='git clone'
 alias grst='git reset'
 
-# SDKMAN!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-
 eval "$(starship init zsh)"
+
+# Setup mise
+eval "$(mise activate zsh)"
