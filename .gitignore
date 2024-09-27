@@ -15,6 +15,6 @@ zsh/zsh_platform.sh
 
 # Fish
 fish/fish_variables
-fish/conf.d/platform.fish
+fish/conf.d/
 fish/functions/
 fish/completions/
