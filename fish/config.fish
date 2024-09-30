@@ -25,4 +25,9 @@ if status is-interactive
     abbr -a gsw git switch
     abbr -a gcl git clone
     abbr -a grst git reset
+
+    abbr -a tfa terraform apply
+    abbr -a tfi terraform init
+    abbr -a tfp terraform plan
+    abbr -a tf terraform
 end
