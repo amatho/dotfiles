@@ -19,7 +19,7 @@ if status is-interactive
     abbr -a gc git commit
     abbr -a gcm git commit -m
     abbr -a gbr git branch
-    abbr -a glg git log
+    abbr -a glg git log --graph
     abbr -a gmr git merge
     abbr -a grb git rebase
     abbr -a gsw git switch
