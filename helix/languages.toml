@@ -12,3 +12,7 @@ language-servers = [ "rust-analyzer" ]
 name = "c"
 auto-format = true
 indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "go"
+auto-format = true
