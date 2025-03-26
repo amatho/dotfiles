@@ -4,28 +4,28 @@ return {
 	lazy = false,
 	keys = {
 		{
-			"<leader>sg",
+			"<leader>g",
 			function()
 				Snacks.picker.grep()
 			end,
 			desc = "Grep",
 		},
 		{
-			"<leader>sf",
+			"<leader>f",
 			function()
 				Snacks.picker.files()
 			end,
 			desc = "Files",
 		},
 		{
-			"<leader>sd",
+			"<leader>d",
 			function()
 				Snacks.picker.diagnostics()
 			end,
 			desc = "Diagnostics",
 		},
 		{
-			"<leader>ss",
+			"<leader>s",
 			function()
 				Snacks.picker.smart()
 			end,
