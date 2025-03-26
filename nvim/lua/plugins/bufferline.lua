@@ -12,7 +12,6 @@ return {
 		offsets = {
 			{
 				filetype = "neo-tree",
-				text = "🤯",
 				highlight = "NeoTreeNormal",
 				text_align = "left",
 				-- Not showing the separator removes an awkward gap between neotree and the first buffer
