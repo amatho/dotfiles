@@ -11,7 +11,7 @@ return {
 			desc = "Grep",
 		},
 		{
-			"<leader>f",
+			"<leader>o",
 			function()
 				Snacks.picker.files()
 			end,
@@ -30,6 +30,20 @@ return {
 				Snacks.picker.smart()
 			end,
 			desc = "Smart",
+		},
+		{
+			"<leader>b",
+			function()
+				Snacks.picker.buffers()
+			end,
+			desc = "Buffers",
+		},
+		{
+			"<M-w>",
+			function()
+				Snacks.bufdelete()
+			end,
+			desc = "Delete buffer",
 		},
 	},
 	---@type snacks.Config
