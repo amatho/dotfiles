@@ -14,7 +14,7 @@ return {
 			},
 		},
 		opts = {
-			notify_on_error = false,
+			notify_on_error = true,
 			format_on_save = function(bufnr)
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
@@ -36,6 +36,28 @@ return {
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+				--false
+				sh = { "shfmt" },
+				["javascript"] = { "prettierd", "prettier" },
+				["javascriptreact"] = { "prettierd", "prettier" },
+				["typescript"] = { "prettierd", "prettier" },
+				["typescriptreact"] = { "prettierd", "prettier" },
+				["vue"] = { "prettierd", "prettier" },
+				["css"] = { "prettierd", "prettier" },
+				["scss"] = { "prettierd", "prettier" },
+				["less"] = { "prettierd", "prettier" },
+				["html"] = { "prettierd", "prettier" },
+				["json"] = { "prettierd", "prettier" },
+				["jsonc"] = { "prettierd", "prettier" },
+				["yaml"] = { "prettierd", "prettier" },
+				["markdown"] = { "prettierd", "prettier" },
+				["markdown.mdx"] = { "prettierd", "prettier" },
+				["graphql"] = { "prettierd", "prettier" },
+				["handlebars"] = { "prettierd", "prettier" },
+				["python"] = { "ruff-lsp" },
+				["rust"] = { "rustfmt" },
+				["go"] = { "goimports", "gofumpt" },
+				["toml"] = { "taplo" },
 			},
 		},
 	},
