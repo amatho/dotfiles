@@ -234,7 +234,20 @@ return {
 						},
 					},
 				},
-				vtsls = {},
+				vtsls = {
+					settings = {
+						typescript = {
+							preferences = {
+								importModuleSpecifier = "relative",
+							},
+						},
+						javascript = {
+							preferences = {
+								importModuleSpecifier = "relative",
+							},
+						},
+					},
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
