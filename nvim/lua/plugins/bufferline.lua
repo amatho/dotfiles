@@ -1,6 +1,10 @@
 return {
 	"akinsho/bufferline.nvim",
 	event = "VeryLazy",
+	keys = {
+		{ "gn", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
+		{ "gn", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
+	},
 	opts = {
 		options = {
 			diagnostics = "nvim_lsp",
