@@ -21,5 +21,10 @@ return {
 	---@type neotree.Config?
 	opts = {
 		-- fill any relevant options here
+		filesystem = {
+			filtered_items = {
+				visible = true,
+			},
+		},
 	},
 }

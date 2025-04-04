@@ -18,13 +18,6 @@ return {
 			desc = "Files",
 		},
 		{
-			"<leader>d",
-			function()
-				Snacks.picker.diagnostics()
-			end,
-			desc = "Diagnostics",
-		},
-		{
 			"<leader>s",
 			function()
 				Snacks.picker.smart()

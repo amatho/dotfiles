@@ -13,8 +13,6 @@ return {
 			},
 		},
 		keymap = {
-			-- Override for Copilot
-			["<C-space>"] = {},
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 
