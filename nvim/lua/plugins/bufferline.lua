@@ -3,7 +3,7 @@ return {
 	event = "VeryLazy",
 	keys = {
 		{ "gn", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
-		{ "gn", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
+		{ "gp", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
 	},
 	opts = {
 		options = {
