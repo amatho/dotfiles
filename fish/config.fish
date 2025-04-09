@@ -16,7 +16,7 @@ if status is-interactive
     abbr -a gfe git fetch
     abbr -a gpl git pull
     abbr -a gp git push
-    abbr -a gpf git push --force-with-lease
+    abbr -a gpf git push --force-with-lease --force-if-includes
     abbr -a gco git checkout
     abbr -a gc git commit
     abbr -a gcm git commit -m
