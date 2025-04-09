@@ -20,6 +20,8 @@ if status is-interactive
     abbr -a gco git checkout
     abbr -a gc git commit
     abbr -a gcm git commit -m
+    abbr -a gca git commit --amend --no-edit
+    abbr -a gcam git commit --amend
     abbr -a gbr git branch
     abbr -a glg git log --graph
     abbr -a gmr git merge
