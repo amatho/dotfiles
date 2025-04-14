@@ -225,6 +225,14 @@ return {
 							importModuleSpecifier = "relative",
 						},
 					},
+					vtsls = {
+						autoUseWorkspaceTsdk = true,
+						experimental = {
+							completion = {
+								enableServerSideFuzzyMatch = true,
+							},
+						},
+					},
 				},
 			},
 			eslint = {},
@@ -244,6 +252,7 @@ return {
 				},
 			},
 			ruff = {},
+			prettierd = {},
 		}
 
 		-- Ensure the servers and tools above are installed

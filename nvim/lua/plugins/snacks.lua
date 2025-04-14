@@ -32,6 +32,13 @@ return {
 			desc = "Buffers",
 		},
 		{
+			"<leader>?",
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Keymaps",
+		},
+		{
 			"<M-w>",
 			function()
 				Snacks.bufdelete()
