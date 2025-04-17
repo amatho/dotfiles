@@ -7,31 +7,11 @@ mise hook-env -s fish | source
 # Init starship
 starship init fish | source
 
-if status is-interactive
-    abbr -a gst git status
-    abbr -a g git
-    abbr -a gst git status
-    abbr -a ga git add
-    abbr -a gdf git diff
-    abbr -a gfe git fetch
-    abbr -a gpl git pull
-    abbr -a gp git push
-    abbr -a gpf git push --force-with-lease --force-if-includes
-    abbr -a gco git checkout
-    abbr -a gc git commit
-    abbr -a gcm git commit -m
-    abbr -a gca git commit --amend --no-edit
-    abbr -a gcam git commit --amend
-    abbr -a gbr git branch
-    abbr -a glg git log --graph
-    abbr -a gmr git merge
-    abbr -a grb git rebase
-    abbr -a gsw git switch
-    abbr -a gcl git clone
-    abbr -a grst git reset
+switch (uname)
+    case Darwin
+        source $__fish_config_dir/darwin.fish
+end
 
-    abbr -a tfa terraform apply
-    abbr -a tfi terraform init
-    abbr -a tfp terraform plan
-    abbr -a tf terraform
+if status is-interactive
+    source $__fish_config_dir/interactive.fish
 end
