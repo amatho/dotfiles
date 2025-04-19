@@ -9,7 +9,7 @@ in
   home.stateVersion = "24.11";
 
   home.username = user;
-  home.homeDirectory = "/Users/${user}";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user}" else "/home/${user}";
 
   programs.fish = {
     enable = true;
@@ -57,10 +57,24 @@ in
   };
 
   home.packages = with pkgs; [
+    awscli2
+    aws-iam-authenticator
     blackbox
+    docker
+    docker-compose
+    fluxcd
     jq
+    k9s
+    kubectl
+    kubernetes-helm
     nixd
     nixfmt-rfc-style
+    nodejs
+    podman
+    podman-compose
+    python3
+    rustup
+    sops
     stylua
     wget
     yq-go
