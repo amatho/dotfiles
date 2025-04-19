@@ -58,6 +58,7 @@ return {
 				["rust"] = { "rustfmt" },
 				["go"] = { "goimports", "gofumpt" },
 				["toml"] = { "taplo" },
+				["nix"] = { "nixfmt" },
 			},
 		},
 	},

@@ -288,5 +288,12 @@ return {
 				end,
 			},
 		})
+
+		-- Mason does not support installing nixd, so we configure it manually
+		if vim.fn.executable("nixd") == 1 then
+			local server = {}
+			server.capabilities = capabilities
+			require("lspconfig")["nixd"].setup(server)
+		end
 	end,
 }
