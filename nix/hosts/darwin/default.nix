@@ -1,6 +1,17 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 let
   user = "amatho";
+
+  fish =
+    if config.home-manager.users.${user}.programs.fish.enable then
+      "/etc/profiles/per-user/${user}/bin/fish"
+    else
+      pkgs.fish;
 in
 {
   # Necessary for using flakes on this system.
@@ -20,13 +31,13 @@ in
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  environment.shells = [ pkgs.fish ];
+  environment.shells = [ fish ];
 
   users.knownUsers = [ user ];
   users.users.${user} = {
     uid = 501;
     home = "/Users/${user}";
-    shell = pkgs.fish;
+    shell = fish;
   };
 
   homebrew.enable = true;
