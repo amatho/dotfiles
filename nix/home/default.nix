@@ -57,9 +57,6 @@ in
   };
 
   home.packages = with pkgs; [
-    awscli2
-    aws-iam-authenticator
-    blackbox
     docker
     docker-compose
     fluxcd
