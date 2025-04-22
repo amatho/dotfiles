@@ -19,6 +19,7 @@ in
 
   programs.bat.enable = true;
   programs.direnv.enable = true;
+  programs.direnv.silent = true;
   programs.direnv.nix-direnv.enable = true;
   programs.eza.enable = true;
   programs.fzf.enable = true;
