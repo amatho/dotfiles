@@ -186,12 +186,6 @@ return {
 			},
 		})
 
-		-- LSP servers and clients are able to communicate to each other what features they support.
-		--  By default, Neovim doesn't support everything that is in the LSP specification.
-		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
-
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 		--
@@ -274,8 +268,6 @@ return {
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-		vim.lsp.config("*", { capabilities = capabilities })
-
 		require("mason-lspconfig").setup({
 			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
 			automatic_installation = false,
@@ -290,9 +282,6 @@ return {
 
 		-- Mason does not support installing nixd, so we configure it manually
 		if vim.fn.executable("nixd") == 1 then
-			local server = {}
-			server.capabilities = capabilities
-			vim.lsp.config("nixd", server)
 			vim.lsp.enable("nixd")
 		end
 	end,
