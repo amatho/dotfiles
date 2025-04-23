@@ -94,6 +94,8 @@ return {
 				-- or a suggestion from your LSP for this to activate.
 				map("<leader>a", vim.lsp.buf.code_action, "Code [A]ction", { "n", "x" })
 
+				map("<leader>p", vim.lsp.buf.signature_help, "Signature help")
+
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
 				--    See `:help CursorHold` for information about when this is executed
