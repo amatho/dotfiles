@@ -84,6 +84,9 @@ return {
 					border = "rounded",
 				},
 			},
+			accept = {
+				auto_brackets = { enabled = false },
+			},
 		},
 		sources = {
 			default = { "lsp", "path" },
