@@ -5,16 +5,16 @@ return {
 		options = {
 			icons_enabled = true,
 			theme = "auto",
-			component_separators = { left = "|", right = "|" },
+			component_separators = "",
 			section_separators = "",
 			disabled_filetypes = {
 				statusline = {},
 				winbar = {},
 			},
-			ignore_focus = {},
-			always_divide_middle = true,
-			always_show_tabline = true,
-			globalstatus = false,
+			ignore_focus = { "neo-tree" },
+			always_divide_middle = false,
+			always_show_tabline = false,
+			globalstatus = true,
 			refresh = {
 				statusline = 100,
 				tabline = 100,
@@ -23,17 +23,32 @@ return {
 		},
 		sections = {
 			lualine_a = { "mode" },
-			lualine_b = { "branch", "diagnostics" },
-			lualine_c = { { "filename", path = 1 } },
-			lualine_x = { "encoding", "fileformat" },
-			lualine_y = { "filetype" },
-			lualine_z = { "location" },
+			lualine_b = {
+				"branch",
+				{
+					"diff",
+					source = function()
+						local gitsigns = vim.b.gitsigns_status_dict
+						if gitsigns then
+							return {
+								added = gitsigns.added,
+								modified = gitsigns.changed,
+								removed = gitsigns.removed,
+							}
+						end
+					end,
+				},
+			},
+			lualine_c = { { "filename", path = 1 }, "diagnostics" },
+			lualine_x = {},
+			lualine_y = {},
+			lualine_z = {},
 		},
 		inactive_sections = {
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = { "filename" },
-			lualine_x = { "location" },
+			lualine_x = {},
 			lualine_y = {},
 			lualine_z = {},
 		},
