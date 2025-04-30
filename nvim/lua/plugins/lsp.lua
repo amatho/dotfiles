@@ -210,6 +210,7 @@ return {
 				},
 			},
 			vtsls = {
+				root_markers = { "tsconfig.json", "jsconfig.json", ".git" },
 				settings = {
 					typescript = {
 						preferences = {

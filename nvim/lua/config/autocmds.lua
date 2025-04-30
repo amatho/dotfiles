@@ -8,3 +8,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+	group = augroup("auto_reload"),
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
