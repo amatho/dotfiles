@@ -65,11 +65,13 @@ in
     k9s
     kubectl
     kubernetes-helm
+    mise
     nixd
     nixfmt-rfc-style
     nodejs
     podman
     podman-compose
+    postgresql
     python3
     rustup
     sops

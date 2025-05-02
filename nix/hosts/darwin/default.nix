@@ -32,6 +32,7 @@ in
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   environment.shells = [ fish ];
+  environment.systemPackages = with pkgs; [ pinentry_mac ];
 
   users.knownUsers = [ user ];
   users.users.${user} = {
@@ -39,6 +40,4 @@ in
     home = "/Users/${user}";
     shell = fish;
   };
-
-  homebrew.enable = true;
 }
