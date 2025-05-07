@@ -34,6 +34,10 @@ in
   environment.shells = [ fish ];
   environment.systemPackages = with pkgs; [ pinentry_mac ];
 
+  nix.settings.trusted-users = [
+    "root"
+    user
+  ];
   users.knownUsers = [ user ];
   users.users.${user} = {
     uid = 501;
