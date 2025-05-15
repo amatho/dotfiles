@@ -100,6 +100,7 @@ return {
 					},
 				},
 			},
+			stylua = {},
 			vtsls = {
 				root_markers = { "tsconfig.json", "jsconfig.json", ".git" },
 				settings = {
@@ -144,23 +145,12 @@ return {
 			rust_analyzer = {},
 		}
 
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua",
-		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		require("mason-tool-installer").setup({ ensure_installed = vim.tbl_keys(servers) })
 
-		require("mason-lspconfig").setup({
-			ensure_installed = {},
-			automatic_installation = false,
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					vim.lsp.config(server_name, server)
-					vim.lsp.enable(server_name)
-				end,
-			},
-		})
+		for server_name, server in pairs(servers) do
+			vim.lsp.enable(server_name)
+			vim.lsp.config(server_name, server)
+		end
 
 		-- Mason does not support installing nixd, so we configure it manually
 		if vim.fn.executable("nixd") == 1 then

@@ -2,7 +2,7 @@ return {
 	"saghen/blink.cmp",
 	version = "*",
 	enabled = true,
-	build = "cargo build --release",
+	build = "cargo +nightly build --release",
 	opts = {
 		cmdline = {
 			keymap = {
