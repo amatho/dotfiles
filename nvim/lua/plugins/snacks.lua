@@ -65,6 +65,11 @@ return {
 		input = { enabled = true },
 		picker = {
 			enabled = true,
+			formatters = {
+				file = {
+					truncate = 80,
+				},
+			},
 			sources = {
 				grep = {
 					-- Hide text match from grep result
