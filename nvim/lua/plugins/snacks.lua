@@ -63,7 +63,17 @@ return {
 			},
 		},
 		input = { enabled = true },
-		picker = { enabled = true },
+		picker = {
+			enabled = true,
+			sources = {
+				grep = {
+					-- Hide text match from grep result
+					transform = function(item)
+						item.line = nil
+					end,
+				},
+			},
+		},
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
 		scope = { enabled = true },
