@@ -1,5 +1,5 @@
 local augroup = function(name)
-	return vim.api.nvim_create_augroup("amatho" .. name, { clear = true })
+	return vim.api.nvim_create_augroup("amatho_" .. name, { clear = true })
 end
 
 vim.api.nvim_create_autocmd("TextYankPost", {
