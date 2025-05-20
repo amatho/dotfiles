@@ -7,36 +7,6 @@ return {
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("amatho_lsp_attach", { clear = true }),
-			callback = function(event)
-				local map = function(keys, func, desc, mode)
-					mode = mode or "n"
-					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-				end
-
-				map("gd", require("snacks.picker").lsp_definitions, "[G]oto [D]efinition")
-				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-				map("gr", require("snacks.picker").lsp_references, "[G]oto [R]eferences")
-				map("gI", require("snacks.picker").lsp_implementations, "[G]oto [I]mplementation")
-				map("<leader>d", require("snacks.picker").diagnostics, "[D]iagnostics")
-				map("<leader>D", require("snacks.picker").lsp_type_definitions, "Type [D]efinition")
-				map("<leader>ls", require("snacks.picker").lsp_symbols, "[S]ymbols")
-				map("<leader>lS", require("snacks.picker").lsp_workspace_symbols, "Workspace [S]ymbols")
-				map("<leader>r", vim.lsp.buf.rename, "[R]ename")
-				map("<leader>a", vim.lsp.buf.code_action, "Code [A]ction", { "n", "x" })
-				map("<leader>p", vim.lsp.buf.signature_help, "Signature help")
-				map("L", vim.diagnostic.open_float, "Show diagnostics")
-
-				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-					map("<leader>th", function()
-						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-					end, "[T]oggle Inlay [H]ints")
-				end
-			end,
-		})
-
 		vim.diagnostic.config({
 			severity_sort = true,
 			float = { border = "rounded", source = "if_many" },
