@@ -40,3 +40,5 @@ opt.scrolloff = 10
 opt.confirm = true
 opt.completeopt = "menu,menuone"
 opt.ruler = false
+opt.grepprg = "rg --vimgrep"
+opt.grepformat = "%f:%l:%c:%m"

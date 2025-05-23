@@ -2,6 +2,8 @@ local map = vim.keymap.set
 local delmap = vim.keymap.del
 
 map("n", "<M-q>", "<cmd>close<cr>", { desc = "Close window" })
+map({ "n", "v" }, "<C-J>", "5j", { desc = "Go down 5 lines" })
+map({ "n", "v" }, "<C-K>", "5k", { desc = "Go up 5 lines" })
 
 map("v", "<", "<gv")
 map("v", ">", ">gv")
