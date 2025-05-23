@@ -14,7 +14,14 @@ return {
 		{
 			"<leader>e",
 			function()
-				require("neo-tree.command").execute({ focus = true, reveal = true })
+				require("neo-tree.command").execute({ action = "focus", reveal = true, toggle = true })
+			end,
+			desc = "Open Neo-tree",
+		},
+		{
+			"<leader>E",
+			function()
+				require("neo-tree.command").execute({ action = "focus", reveal = true })
 			end,
 			desc = "Open Neo-tree",
 		},
