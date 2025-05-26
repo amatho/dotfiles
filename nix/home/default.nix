@@ -51,6 +51,8 @@ in
     recursive = true;
   };
 
+  xdg.configFile."wezterm".source = ../../wezterm;
+
   programs.helix = {
     enable = true;
     languages = readTOML ../../helix/languages.toml;
