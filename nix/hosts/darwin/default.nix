@@ -32,8 +32,18 @@ in
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   environment.shells = [ fish ];
-  environment.systemPackages = with pkgs; [ pinentry_mac ];
+  environment.systemPackages = with pkgs; [
+    pinentry_mac
+  ];
 
+  homebrew.enable = true;
+  homebrew.casks = [
+    "nikitabobko/tap/aerospace"
+    "ghostty"
+    "wezterm"
+  ];
+
+  system.primaryUser = user;
   nix.settings.trusted-users = [
     "root"
     user

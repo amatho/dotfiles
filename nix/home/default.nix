@@ -34,6 +34,7 @@ in
   programs.zellij.enable = true;
   programs.zellij.settings = {
     theme = "ansi";
+    default_layout = "compact";
     simplified_ui = true;
     pane_frames = false;
     show_startup_tips = false;
