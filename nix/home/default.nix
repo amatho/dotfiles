@@ -52,6 +52,7 @@ in
     package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
 
+  xdg.configFile."ghostty".source = ../../ghostty;
   xdg.configFile."nvim/lua".source = ../../nvim/lua;
   xdg.configFile."nvim/init.lua".source = ../../nvim/init.lua;
   xdg.configFile."nvim/lazy-lock.json".source =

@@ -1,0 +1,28 @@
+font-family = Source Code Pro
+font-size = 13
+font-thicken = true
+
+theme = catppuccin-dark
+bold-is-bright = true
+
+cursor-color = #ffcc00
+cursor-style-blink = false
+
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = false
+macos-window-shadow = false
+window-decoration = none
+window-padding-x = 0
+window-padding-y = 0
+background-opacity = 1
+background-blur-radius = 0
+
+# Make option+arrow send alt+arrow
+keybind = alt+up=text:\x1B[1;3A
+keybind = alt+down=text:\x1B[1;3B
+keybind = alt+right=text:\x1B[1;3C
+keybind = alt+left=text:\x1B[1;3D
+
+# Keybinds for using super as meta in Neovim
+keybind = super+q=text:\x1Bq
+keybind = super+w=text:\x1Bw
