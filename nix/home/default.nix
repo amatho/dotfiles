@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 let
   user = "amatho";
   readTOML = path: builtins.fromTOML (builtins.readFile path);
@@ -47,11 +52,10 @@ in
     package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
 
-  xdg.configFile."nvim" = {
-    source = ../../nvim;
-    recursive = true;
-  };
-
+  xdg.configFile."nvim/lua".source = ../../nvim/lua;
+  xdg.configFile."nvim/init.lua".source = ../../nvim/init.lua;
+  xdg.configFile."nvim/lazy-lock.json".source =
+    config.lib.file.mkOutOfStoreSymlink (toString ../../nvim/lazy-lock.json);
   xdg.configFile."wezterm".source = ../../wezterm;
 
   programs.helix = {
