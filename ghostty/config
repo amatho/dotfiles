@@ -1,6 +1,9 @@
 font-family = Source Code Pro
+font-style = Medium
 font-size = 13
 font-thicken = true
+adjust-cell-height = 7
+adjust-cursor-height = 5
 
 theme = catppuccin-dark
 bold-is-bright = true
@@ -10,10 +13,8 @@ cursor-style-blink = false
 
 macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = false
-macos-window-shadow = false
 window-decoration = none
 window-padding-x = 0
-window-padding-y = 0
 background-opacity = 1
 background-blur-radius = 0
 
