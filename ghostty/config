@@ -18,6 +18,8 @@ window-padding-x = 0
 background-opacity = 1
 background-blur-radius = 0
 
+link-url = true
+
 # Make option+arrow send alt+arrow
 keybind = alt+up=text:\x1B[1;3A
 keybind = alt+down=text:\x1B[1;3B
