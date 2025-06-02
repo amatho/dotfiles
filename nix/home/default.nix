@@ -66,6 +66,7 @@ in
   };
 
   home.packages = with pkgs; [
+    cmctl
     docker
     docker-compose
     fluxcd
