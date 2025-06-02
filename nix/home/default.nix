@@ -6,6 +6,7 @@
 }:
 let
   user = "amatho";
+  outOfStoreConfigPath = if pkgs.stdenv.isDarwin then "/etc/nix-darwin" else "/etc/nixos";
   readTOML = path: builtins.fromTOML (builtins.readFile path);
 in
 {
@@ -56,7 +57,7 @@ in
   xdg.configFile."nvim/lua".source = ../../nvim/lua;
   xdg.configFile."nvim/init.lua".source = ../../nvim/init.lua;
   xdg.configFile."nvim/lazy-lock.json".source =
-    config.lib.file.mkOutOfStoreSymlink (toString ../../nvim/lazy-lock.json);
+    config.lib.file.mkOutOfStoreSymlink "${outOfStoreConfigPath}/nvim/lazy-lock.json";
   xdg.configFile."wezterm".source = ../../wezterm;
 
   programs.helix = {
