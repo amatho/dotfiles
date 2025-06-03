@@ -18,12 +18,12 @@
       darwinConfigurations."Amandus-sin-MacBook-Pro-2" = nix-darwin.lib.darwinSystem rec {
         specialArgs = { inherit inputs; };
         modules = [
-          ./nix/hosts/darwin
+          ./hosts/darwin
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.amatho = ./nix/home;
+            home-manager.users.amatho = ./home;
             home-manager.extraSpecialArgs = specialArgs;
           }
         ];
