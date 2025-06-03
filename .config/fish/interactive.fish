@@ -27,6 +27,9 @@ set -g fish_pager_color_prefix white --bold --underline
 set -g fish_pager_color_progress brwhite --background=cyan
 set -g fish_pager_color_selected_background -r
 
+alias vi="nvim"
+alias vim="nvim"
+
 abbr -a gst git status
 abbr -a g git
 abbr -a gst git status

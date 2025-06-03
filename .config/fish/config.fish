@@ -12,6 +12,7 @@ mise hook-env -s fish | source
 source ~/.cargo/env.fish
 
 fish_add_path -aP ~/.local/share/bob/nvim-bin
+set -x EDITOR "nvim"
 
 zoxide init fish --cmd cd | source
 starship init fish | source
