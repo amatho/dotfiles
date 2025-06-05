@@ -44,7 +44,6 @@ return {
 					},
 				},
 			},
-			stylua = {},
 			vtsls = {
 				root_markers = { "tsconfig.json", "jsconfig.json", ".git" },
 				settings = {
@@ -85,11 +84,16 @@ return {
 				},
 			},
 			ruff = {},
-			prettierd = {},
 			rust_analyzer = {},
 		}
 
-		require("mason-tool-installer").setup({ ensure_installed = vim.tbl_keys(servers) })
+		local ensure_installed = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed, {
+			"stylua",
+			"prettierd",
+		})
+
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		for server_name, server in pairs(servers) do
 			vim.lsp.enable(server_name)
