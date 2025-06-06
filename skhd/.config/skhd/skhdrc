@@ -1,0 +1,8 @@
+fn - h: aerospace focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left
+fn - j: aerospace focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down
+fn - k: aerospace focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up
+fn - l: aerospace focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right
+
+fn - 1 : aerospace workspace 1 
+fn - 2 : aerospace workspace 2 
+fn - 3 : aerospace workspace 3 
