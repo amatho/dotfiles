@@ -1,20 +1,20 @@
 # Helix
-helix/runtime/
+helix/.config/helix/runtime/
 
 # Neovim
-nvim/plugin/
+nvim/.config/nvim/plugin/
 
 # Zsh
-zsh/.zcompdump
-zsh/.zcompdump.zwc
-zsh/.zcompcache/
-zsh/.zsh_sessions/
-zsh/.zsh_history
-zsh/.zsh_plugins.zsh
-zsh/zsh_platform.sh
+zsh/.config/zsh/.zcompdump
+zsh/.config/zsh/.zcompdump.zwc
+zsh/.config/zsh/.zcompcache/
+zsh/.config/zsh/.zsh_sessions/
+zsh/.config/zsh/.zsh_history
+zsh/.config/zsh/.zsh_plugins.zsh
+zsh/.config/zsh/zsh_platform.sh
 
 # Fish
-fish/fish_variables
-fish/conf.d/*
-fish/functions/*
-fish/completions/*
+fish/.config/fish/fish_variables
+fish/.config/fish/conf.d/*
+fish/.config/fish/functions/*
+fish/.config/fish/completions/*
