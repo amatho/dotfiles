@@ -1,9 +1,8 @@
-font-family = Source Code Pro
-font-style = Medium
+font-family = DejaVuSansM Nerd Font Mono
 font-size = 13
 font-thicken = true
-adjust-cell-height = 7
-adjust-cursor-height = 5
+adjust-cell-height = 0
+adjust-cursor-height = 2
 
 theme = catppuccin-dark
 bold-is-bright = true
