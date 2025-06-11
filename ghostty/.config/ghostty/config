@@ -19,11 +19,17 @@ background-blur-radius = 0
 
 link-url = true
 
-# Make option+arrow send alt+arrow
+# Option+arrow sends alt+arrow
 keybind = alt+up=text:\x1B[1;3A
 keybind = alt+down=text:\x1B[1;3B
 keybind = alt+right=text:\x1B[1;3C
 keybind = alt+left=text:\x1B[1;3D
+
+# Option+hjkl sends alt+hjkl
+keybind = alt+h=text:\x1Bh
+keybind = alt+j=text:\x1Bj
+keybind = alt+k=text:\x1Bk
+keybind = alt+l=text:\x1Bl
 
 # Keybinds for using super as meta in Neovim
 keybind = super+q=text:\x1Bq
