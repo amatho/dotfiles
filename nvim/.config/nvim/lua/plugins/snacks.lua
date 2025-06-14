@@ -77,6 +77,9 @@ return {
 						item.line = nil
 					end,
 				},
+				files = {
+					hidden = true,
+				},
 			},
 		},
 		notifier = { enabled = true },
