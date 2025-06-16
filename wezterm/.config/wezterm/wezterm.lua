@@ -12,7 +12,10 @@ config.window_padding = {
 	top = 0,
 	bottom = 0,
 }
-config.window_decorations = "RESIZE"
+
+if wezterm.target_triple ~= "x86_64-pc-windows-msvc" then
+	config.window_decorations = "RESIZE"
+end
 
 config.keys = {}
 if wezterm.target_triple:match("darwin$") then
