@@ -14,7 +14,6 @@ zsh/.config/zsh/.zsh_plugins.zsh
 zsh/.config/zsh/zsh_platform.sh
 
 # Fish
-fish/.config/fish/fish_variables
 fish/.config/fish/conf.d/*
 fish/.config/fish/functions/*
 fish/.config/fish/completions/*
