@@ -8,6 +8,8 @@ map({ "n", "v" }, "<C-K>", "5k", { desc = "Go up 5 lines" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
+map("n", "<Esc>", "<cmd>noh<cr>", { desc = "Clear search highlight" })
+
 delmap({ "n", "x" }, "gra")
 delmap("n", "gri")
 delmap("n", "grn")
