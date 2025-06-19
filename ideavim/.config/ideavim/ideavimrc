@@ -1,0 +1,45 @@
+nnoremap <SPACE> <Nop>
+let mapleader = " "
+
+set scrolloff=5
+set relativenumber
+set incsearch
+set clipboard=unnamedplus
+set hlsearch
+set ignorecase
+set smartcase
+set visualbell
+
+set which-key
+let g:WhichKey_ShowVimActions = "true"
+set notimeout
+set surround
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+
+nnoremap <C-J> 5j
+vnoremap <C-J> 5j
+nnoremap <C-K> 5k
+vnoremap <C-K> 5k
+vnoremap < <gv
+vnoremap > >gv
+nnoremap <Esc> :noh<CR>
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+nmap <leader>k <Action>(QuickJavaDoc)
+nmap <leader>p <Action>(ParameterInfo)
+nmap <leader>f <Action>(ReformatCode)
+nmap <leader>w <Action>(ManageRecentProjects)
+nmap <leader>r <Action>(RenameElement)
+nmap <leader>g <Action>(TextSearchAction)
+nmap <leader>b <Action>(RecentFiles)
+nmap <leader>s <Action>(GotoFile)
+nmap <leader>o <Action>(GotoFile)
+nmap <leader>a <Action>(ShowIntentionActions)
+nmap <leader>d <Action>(ActivateProblemsViewToolWindow)
+nmap <S-l> <Action>(ShowErrorDescription)
+nmap gn <Action>(NextTab)
+nmap gp <Action>(PreviousTab)
+nmap gr <Action>(GotoDeclaration)
