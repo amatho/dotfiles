@@ -1,8 +1,6 @@
 return {
 	"saghen/blink.cmp",
-	version = "*",
-	enabled = true,
-	build = "cargo +nightly build --release",
+	version = "1.*",
 	opts = {
 		cmdline = {
 			keymap = {
@@ -92,4 +90,5 @@ return {
 			default = { "lsp", "path" },
 		},
 	},
+	opts_extend = { "sources.default" },
 }
