@@ -76,6 +76,7 @@ return {
 					transform = function(item)
 						item.line = nil
 					end,
+					hidden = true,
 				},
 				files = {
 					hidden = true,
