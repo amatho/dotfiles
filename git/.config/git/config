@@ -24,6 +24,7 @@
 	navigate = true
 	line-numbers = true
 	side-by-side = true
+	syntax-theme = ansi
 	commit-decoration-style = bold yellow ul
 	file-style = bold yellow
 	file-decoration-style = bold yellow ul
