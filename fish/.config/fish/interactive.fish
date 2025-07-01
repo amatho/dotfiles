@@ -1,7 +1,7 @@
 alias ls="eza"
 alias la="eza -la"
 alias ll="eza -l"
-alias vi="nvim"
+alias cat="bat"
 alias vim="nvim"
 
 abbr -a gst git status
