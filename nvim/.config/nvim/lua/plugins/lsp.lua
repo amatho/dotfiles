@@ -68,7 +68,7 @@ return {
 				},
 			},
 			eslint = {},
-			terraformls = {},
+			terraformls = { root_markers = { ".git" } },
 			pyright = {
 				settings = {
 					pyright = {
