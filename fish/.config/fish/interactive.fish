@@ -38,6 +38,7 @@ abbr -a jgc jj git clone
 abbr -a jgf jj git fetch
 abbr -a jgi jj git init
 abbr -a jgp jj git push
+abbr -a jl jj log
 abbr -a jn jj new
 abbr -a jrb jj rebase
 abbr -a jrs jj restore
