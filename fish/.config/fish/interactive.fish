@@ -4,7 +4,6 @@ alias ll="eza -l"
 alias cat="bat"
 alias vim="nvim"
 
-abbr -a gst git status
 abbr -a g git
 abbr -a gst git status
 abbr -a ga git add
@@ -25,6 +24,26 @@ abbr -a grb git rebase
 abbr -a gsw git switch
 abbr -a gcl git clone
 abbr -a grst git reset
+
+abbr -a jab jj abandon
+abbr -a jbl jj b l
+abbr -a jbm jj b m
+abbr -a jbs jj b s
+abbr -a jc jj commit -m
+abbr -a jd jj desc -m
+abbr -a jdf jj diff
+abbr -a jdfe jj diffedit
+abbr -a je jj edit
+abbr -a jgc jj git clone
+abbr -a jgf jj git fetch
+abbr -a jgi jj git init
+abbr -a jgp jj git push
+abbr -a jn jj new
+abbr -a jrb jj rebase
+abbr -a jrs jj restore
+abbr -a jsp jj split
+abbr -a jsq jj squash
+abbr -a jst jj st
 
 abbr -a tfa terraform apply
 abbr -a tfi terraform init
