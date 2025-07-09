@@ -34,6 +34,13 @@ return {
 			desc = "Buffers",
 		},
 		{
+			"<leader>hB",
+			function()
+				Snacks.git.blame_line()
+			end,
+			desc = "Blame line (Snacks)",
+		},
+		{
 			"<leader>?",
 			function()
 				Snacks.picker.keymaps()
@@ -50,9 +57,6 @@ return {
 	},
 	---@type snacks.Config
 	opts = {
-		-- your configuration comes here
-		-- or leave it empty to use the default settings
-		-- refer to the configuration section below
 		bigfile = { enabled = true },
 		dashboard = { enabled = true },
 		indent = {

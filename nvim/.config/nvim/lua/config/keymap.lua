@@ -24,16 +24,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
 
-		lspmap("gd", require("snacks.picker").lsp_definitions, "[G]oto [D]efinition")
-		lspmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-		lspmap("gr", require("snacks.picker").lsp_references, "[G]oto [R]eferences")
-		lspmap("gI", require("snacks.picker").lsp_implementations, "[G]oto [I]mplementation")
-		lspmap("<leader>d", require("snacks.picker").diagnostics, "[D]iagnostics")
-		lspmap("<leader>D", require("snacks.picker").lsp_type_definitions, "Type [D]efinition")
-		lspmap("<leader>ls", require("snacks.picker").lsp_symbols, "[S]ymbols")
-		lspmap("<leader>lS", require("snacks.picker").lsp_workspace_symbols, "Workspace [S]ymbols")
-		lspmap("<leader>r", vim.lsp.buf.rename, "[R]ename")
-		lspmap("<leader>a", vim.lsp.buf.code_action, "Code [A]ction", { "n", "x" })
+		local picker = require("snacks.picker")
+
+		lspmap("gd", picker.lsp_definitions, "Goto definition")
+		lspmap("gD", vim.lsp.buf.declaration, "Goto declaration")
+		lspmap("gr", picker.lsp_references, "Goto references")
+		lspmap("gI", picker.lsp_implementations, "Goto implementation")
+		lspmap("<leader>d", picker.diagnostics, "Diagnostics")
+		lspmap("<leader>D", picker.lsp_type_definitions, "Type definition")
+		lspmap("<leader>ls", picker.lsp_symbols, "Symbols")
+		lspmap("<leader>lS", picker.lsp_workspace_symbols, "Workspace symbols")
+		lspmap("<leader>r", vim.lsp.buf.rename, "Rename")
+		lspmap("<leader>a", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
 		lspmap("<leader>p", vim.lsp.buf.signature_help, "Signature help")
 		lspmap("L", vim.diagnostic.open_float, "Show diagnostics")
 
@@ -41,7 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 			lspmap("<leader>th", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-			end, "[T]oggle Inlay [H]ints")
+			end, "Toggle Inlay Hints")
 		end
 	end,
 })
