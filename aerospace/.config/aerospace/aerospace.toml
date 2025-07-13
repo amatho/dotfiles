@@ -24,9 +24,6 @@ automatically-unhide-macos-hidden-apps = true
     alt-backslash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
 
-    ctrl-left = 'workspace --wrap-around prev'
-    ctrl-right = 'workspace --wrap-around next'
-
     alt-slash = 'resize smart -50'
     alt-minus = 'resize smart +50'
 

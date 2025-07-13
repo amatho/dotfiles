@@ -8,6 +8,9 @@ fn + shift - j : aerospace move down
 fn + shift - k : aerospace move up
 fn + shift - l : aerospace move right
 
+home : aerospace workspace --wrap-around prev
+end : aerospace workspace --wrap-around next
+
 fn - 0 : aerospace workspace 0
 fn - 1 : aerospace workspace 1
 fn - 2 : aerospace workspace 2
