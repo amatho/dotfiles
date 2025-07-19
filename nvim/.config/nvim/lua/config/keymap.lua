@@ -17,7 +17,7 @@ delmap("n", "grr")
 
 -- LSP specific keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("amatho_lsp_attach", { clear = true }),
+	group = vim.api.nvim_create_augroup("amatho_lsp_attach_keymaps", { clear = true }),
 	callback = function(event)
 		local lspmap = function(keys, func, desc, mode)
 			mode = mode or "n"
