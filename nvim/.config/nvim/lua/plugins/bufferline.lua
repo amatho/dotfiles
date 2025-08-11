@@ -4,6 +4,8 @@ return {
 	keys = {
 		{ "gn", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
 		{ "gp", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
+		{ "<M-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
+		{ "<A-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
 	},
 	opts = {
 		options = {
