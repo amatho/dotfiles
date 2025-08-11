@@ -21,12 +21,6 @@ automatically-unhide-macos-hidden-apps = true
     outer.right =      0
 
 [mode.main.binding]
-    alt-backslash = 'layout tiles horizontal vertical'
-    alt-comma = 'layout accordion horizontal vertical'
-
-    alt-slash = 'resize smart -50'
-    alt-minus = 'resize smart +50'
-
     alt-shift-comma = 'mode service'
 
 [mode.service.binding]

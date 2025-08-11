@@ -36,3 +36,9 @@ fn + shift - 9 : aerospace move-node-to-workspace --focus-follows-window 9
 fn - f : aerospace layout floating tiling
 fn - tab : aerospace workspace-back-and-forth
 fn + shift - tab : aerospace move-workspace-to-monitor --wrap-around next
+
+fn - 0x2A : aerospace layout tiles horizontal vertical
+fn - 0x2B : aerospace layout accordion horizontal vertical
+
+fn - 0x2C : aerospace resize smart -50
+fn - 0x1B : aerospace resize smart +50

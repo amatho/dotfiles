@@ -13,7 +13,7 @@ cursor-style = block
 cursor-style-blink = false
 
 macos-titlebar-proxy-icon = hidden
-macos-option-as-alt = false
+macos-option-as-alt = left
 window-decoration = none
 window-padding-x = 0
 background-opacity = 1
@@ -21,18 +21,13 @@ background-blur-radius = 0
 
 link-url = true
 
-# Option+arrow sends alt+arrow
-keybind = alt+up=text:\x1B[1;3A
-keybind = alt+down=text:\x1B[1;3B
-keybind = alt+right=text:\x1B[1;3C
-keybind = alt+left=text:\x1B[1;3D
+keybind = alt+7=text:|
+keybind = alt+8=text:[
+keybind = alt+9=text:]
+keybind = shift+alt+8=text:{
+keybind = shift+alt+9=text:}
 
-# Option+hjkl sends alt+hjkl
-keybind = alt+h=text:\x1Bh
-keybind = alt+j=text:\x1Bj
-keybind = alt+k=text:\x1Bk
-keybind = alt+l=text:\x1Bl
-
-# Keybinds for using super as meta in Neovim
+# super+q sends meta+q
 keybind = super+q=text:\x1Bq
+# super+w sends meta+w
 keybind = super+w=text:\x1Bw
