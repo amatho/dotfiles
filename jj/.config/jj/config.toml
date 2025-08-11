@@ -4,14 +4,17 @@
 email = "ama.thorsrud@gmail.com"
 name = "Amandus Søve Thorsrud"
 
-[ui]
-diff-formatter = "delta"
-diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
-conflict-marker-style = "git"
-
-[merge-tools.delta]
-diff-expected-exit-codes = [0, 1]
-
 [signing]
 behavior = "own"
 backend = "gpg"
+
+[ui]
+diff-formatter = ":git"
+pager = ["delta", "--pager", "less -FRX"]
+diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
+conflict-marker-style = "git"
+
+[[--scope]]
+--when.commands = ["diff", "show"]
+[--scope.ui]
+pager = "delta"
