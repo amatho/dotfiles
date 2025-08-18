@@ -29,7 +29,7 @@ abbr -a jab jj abandon
 abbr -a jbl jj b l
 abbr -a jbs jj b s
 abbr -a jbm jj b m
-abbr -a jbmb jj b m --from 'heads(::@- & bookmarks())' --to @-
+abbr -a jbmb "jj b m --from 'heads(::@- & bookmarks())' --to @-"
 abbr -a jc jj commit -m
 abbr -a jd jj desc -m
 abbr -a jdf jj diff
