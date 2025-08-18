@@ -24,6 +24,7 @@ link-url = true
 keybind = alt+7=text:|
 keybind = alt+8=text:[
 keybind = alt+9=text:]
+keybind = shift+alt+physical:seven=text:\\
 keybind = shift+alt+8=text:{
 keybind = shift+alt+9=text:}
 
