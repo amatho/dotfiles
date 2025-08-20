@@ -14,6 +14,7 @@ set which-key
 let g:WhichKey_ShowVimActions = "true"
 set notimeout
 set surround
+set multiple-cursors
 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 Plug 'machakann/vim-highlightedyank'
@@ -45,3 +46,5 @@ nmap gp <Action>(PreviousTab)
 nmap <M-.> <Action>(NextTab)
 nmap <M-,> <Action>(PreviousTab)
 nmap gr <Action>(GotoDeclaration)
+nmap <C-n> <Plug>NextWholeOccurrence
+nmap <C-x> <Plug>SkipOccurrence
