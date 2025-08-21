@@ -20,13 +20,6 @@ return {
 			desc = "Files",
 		},
 		{
-			"<leader>s",
-			function()
-				Snacks.picker.smart()
-			end,
-			desc = "Smart",
-		},
-		{
 			"<leader>b",
 			function()
 				Snacks.picker.buffers()
