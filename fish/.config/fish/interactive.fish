@@ -83,3 +83,7 @@ if set -q ZELLIJ
 
     __zellij_tab_name_update
 end
+
+set ZELLIJ_AUTO_ATTACH false
+set ZELLIJ_AUTO_EXIT false
+eval (zellij setup --generate-auto-start fish | string collect)
