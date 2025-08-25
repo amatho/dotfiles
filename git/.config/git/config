@@ -3,8 +3,11 @@
 [user]
 	name = Amandus Søve Thorsrud
 	email = ama.thorsrud@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFaRcZKH9CJsX39JG5MHnw0HFnpm/0ugJdWP95+F4Cp8
 [commit]
 	gpgsign = true
+[gpg]
+	format = ssh
 [fetch]
 	prune = true
 [init]

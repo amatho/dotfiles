@@ -5,8 +5,12 @@ email = "ama.thorsrud@gmail.com"
 name = "Amandus Søve Thorsrud"
 
 [signing]
-behavior = "own"
-backend = "gpg"
+behavior = "drop"
+backend = "ssh"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFaRcZKH9CJsX39JG5MHnw0HFnpm/0ugJdWP95+F4Cp8"
+
+[git]
+sign-on-push = true
 
 [ui]
 diff-formatter = ["difft", "--color=always", "$left", "$right"]
