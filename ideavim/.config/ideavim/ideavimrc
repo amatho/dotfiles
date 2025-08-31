@@ -14,7 +14,7 @@ set which-key
 let g:WhichKey_ShowVimActions = "true"
 set notimeout
 set surround
-t multiple-cursors
+set multiple-cursors
 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 Plug 'machakann/vim-highlightedyank'
