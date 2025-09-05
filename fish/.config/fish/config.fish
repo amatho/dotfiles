@@ -19,7 +19,7 @@ if status is-interactive
     # Activate Mise for interactive shells
     mise activate fish | source
 
-    zoxide init fish --cmd cd | source
+    zoxide init fish | source
     starship init fish | source
 
     source $__fish_config_dir/interactive.fish
