@@ -74,14 +74,18 @@ return {
 					basedpyright = {
 						-- Using Ruff's import organizer
 						disableOrganizeImports = true,
-						analysis = {
-							-- Ignore all files for analysis to exclusively use Ruff for linting
-							ignore = { "*" },
+					},
+				},
+			},
+			ruff = {
+				init_options = {
+					settings = {
+						lint = {
+							enable = false,
 						},
 					},
 				},
 			},
-			ruff = {},
 			rust_analyzer = {
 				settings = {
 					["rust-analyzer"] = {
