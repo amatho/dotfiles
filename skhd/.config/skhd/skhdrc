@@ -3,10 +3,10 @@ fn - j: aerospace focus --boundaries all-monitors-outer-frame --boundaries-actio
 fn - k: aerospace focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up
 fn - l: aerospace focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right
 
-fn + shift - h : aerospace move left
-fn + shift - j : aerospace move down
-fn + shift - k : aerospace move up
-fn + shift - l : aerospace move right
+fn + shift - h : aerospace move --boundaries all-monitors-outer-frame left 
+fn + shift - j : aerospace move --boundaries all-monitors-outer-frame down
+fn + shift - k : aerospace move --boundaries all-monitors-outer-frame up
+fn + shift - l : aerospace move --boundaries all-monitors-outer-frame right
 
 fn + ctrl - h : aerospace move-workspace-to-monitor --wrap-around left
 fn + ctrl - j : aerospace move-workspace-to-monitor --wrap-around down
