@@ -69,19 +69,46 @@ return {
 			},
 			eslint = {},
 			terraformls = { root_markers = { ".git" } },
-			basedpyright = {
+			-- basedpyright = {
+			-- 	settings = {
+			-- 		basedpyright = {
+			-- 			diagnosticMode = "workspace",
+			-- 			-- Using Ruff's import organizer
+			-- 			disableOrganizeImports = true,
+			-- 			analysis = {
+			-- 				diagnosticSeverityOverrides = {
+			-- 					-- Turn off all lint-style checks
+			-- 					reportMissingImports = "none",
+			-- 					reportMissingTypeStubs = "none",
+			-- 					reportUnusedImport = "none",
+			-- 					reportUnusedClass = "none",
+			-- 					reportUnusedFunction = "none",
+			-- 					reportUnusedVariable = "none",
+			-- 					reportDuplicateImport = "none",
+			-- 					reportWildcardImportFromLibrary = "none",
+			-- 					reportUndefinedVariable = "none",
+			-- 					reportAssertAlwaysTrue = "none",
+			-- 					reportInvalidStringEscapeSequence = "none",
+			-- 					reportExplicitAny = "none",
+			-- 					reportAny = "none",
+			-- 					reportUnannotatedClassAttribute = "none",
+			-- 					reportUnusedCallResult = "none",
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
+			ruff = {},
+			-- ty = {},
+			pyrefly = {
 				settings = {
-					basedpyright = {
-						-- Using Ruff's import organizer
-						disableOrganizeImports = true,
-						analysis = {
-							-- Ignore all files for analysis to exclusively use Ruff for linting
-							ignore = { "*" },
+					python = {
+						pyrefly = {
+							displayTypeErrors = "force-on",
 						},
 					},
 				},
 			},
-			ruff = {},
 			rust_analyzer = {
 				settings = {
 					["rust-analyzer"] = {
