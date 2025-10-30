@@ -38,6 +38,7 @@ abbr -a jdfe jj diffedit
 abbr -a je jj edit
 abbr -a jgc jj git clone
 abbr -a jgf jj git fetch
+abbr -a jgfm "jj git fetch && jj new 'trunk()'"
 abbr -a jgi jj git init
 abbr -a jgp jj git push
 abbr -a jl jj log
