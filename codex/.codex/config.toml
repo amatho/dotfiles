@@ -1,0 +1,23 @@
+model = "gpt-5.1-codex"
+[projects."/Users/amatho/code/ndla/backend"]
+trust_level = "trusted"
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.idea]
+command = "npx"
+args = ["-y", "mcp-remote", "http://localhost:64342/sse"]
+env = { "IJ_MCP_SERVER_PORT" = "64342" }
+
+[mcp_servers.aws_documentation]
+command = "uvx"
+args = ["awslabs.aws-documentation-mcp-server@latest"]
+env = { "FASTMCP_LOG_LEVEL" = "ERROR", "AWS_DOCUMENTATION_PARTITION" = "aws" }
+
+[mcp_servers.aws-knowledge-mcp]
+url = "https://knowledge-mcp.global.api.aws"
+
+[notice]
+hide_gpt5_1_migration_prompt = true
