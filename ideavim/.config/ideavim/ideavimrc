@@ -27,6 +27,7 @@ vnoremap <C-K> 5k
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <Esc> :noh<CR>:action EditorEscape<CR>
+nnoremap Y y$
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 nmap <leader>k <Action>(QuickJavaDoc)
