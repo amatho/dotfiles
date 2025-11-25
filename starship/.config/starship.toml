@@ -12,6 +12,7 @@ ${custom.git_metrics}\
 ${custom.git_status}\
 $memory_usage\
 $aws\
+$kubernetes\
 $direnv\
 $env_var\
 $custom\
@@ -25,6 +26,10 @@ $status\
 $os\
 $shell\
 $character"""
+
+[kubernetes]
+disabled = false
+detect_env_vars = ['KUBECONFIG']
 
 [custom.jj]
 command = '''
