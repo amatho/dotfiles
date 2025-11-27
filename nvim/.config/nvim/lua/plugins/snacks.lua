@@ -34,7 +34,7 @@ return {
 			desc = "Blame line (Snacks)",
 		},
 		{
-			"<leader>?",
+			"<leader>?g",
 			function()
 				Snacks.picker.keymaps()
 			end,
