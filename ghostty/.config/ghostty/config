@@ -1,8 +1,8 @@
-font-family = FiraMono Nerd Font Mono
+font-family = SauceCodePro Nerd Font Mono
+font-style = Medium
 font-size = 13
 font-thicken = true
 adjust-cell-height = 5
-adjust-cursor-height = 3
 
 theme = catppuccin-dark
 bold-is-bright = true
