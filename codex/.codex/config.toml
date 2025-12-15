@@ -1,5 +1,18 @@
-model = "gpt-5.1-codex"
+model = "gpt-5.1-codex-max"
+model_reasoning_effort = "medium"
 [projects."/Users/amatho/code/ndla/backend"]
+trust_level = "trusted"
+
+[projects."/Users/amatho/code/go/jwt-forward-auth"]
+trust_level = "trusted"
+
+[projects."/Users/amatho/code/ndla/editorial-frontend"]
+trust_level = "trusted"
+
+[projects."/Users/amatho/code/ndla/frontend-packages"]
+trust_level = "trusted"
+
+[projects."/Users/amatho/code/ndla/deploy"]
 trust_level = "trusted"
 
 [mcp_servers.context7]
@@ -21,3 +34,4 @@ url = "https://knowledge-mcp.global.api.aws"
 
 [notice]
 hide_gpt5_1_migration_prompt = true
+"hide_gpt-5.1-codex-max_migration_prompt" = true
