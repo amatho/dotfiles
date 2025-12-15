@@ -1,25 +1,20 @@
 #!/usr/bin/env fish
 
-set darwin_packages aerospace fish ghostty git helix ideavim jj nvim skhd starship wezterm zellij zsh
-set linux_packages fish ghostty git helix ideavim jj nvim starship wezterm zellij zsh
-
 switch (uname)
 case Darwin
-    set is_darwin
+    set ignored_packages
+case '*'
+    set ignored_packages aerospace skhd
 end
 
 for dir in ./*/
     set package (basename $dir)
 
-    if not contains $package $darwin_packages; and not contains $package $linux_packages
-        echo "WARN: Unknown package $package. Maybe update install script?"
-        continue
-    else if set -q is_darwin; and not contains $package $darwin_packages
-        continue
-    else if not set -q is_darwin; and not contains $package $linux_packages
+    if contains $package $ignored_packages
+        echo -e "\033[0;34mINFO: ignoring package $package\033[0m"
         continue
     end
 
-    echo "INFO: stowing package $package"
+    echo -e "\033[0;32mINFO: stowing package $package\033[0m"
     stow $package -t $HOME
 end
