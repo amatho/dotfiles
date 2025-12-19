@@ -100,16 +100,16 @@ return {
 			-- 	},
 			-- },
 			ruff = {},
-			-- ty = {},
-			pyrefly = {
-				settings = {
-					python = {
-						pyrefly = {
-							displayTypeErrors = "force-on",
-						},
-					},
-				},
-			},
+			ty = {},
+			-- pyrefly = {
+			-- 	settings = {
+			-- 		python = {
+			-- 			pyrefly = {
+			-- 				displayTypeErrors = "force-on",
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
 			rust_analyzer = {
 				settings = {
 					["rust-analyzer"] = {
