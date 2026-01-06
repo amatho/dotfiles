@@ -5,7 +5,7 @@ return {
 	},
 	lazy = true,
 	keys = {
-		{ "<leader>hg", "<cmd>Neogit<cr>", { desc = "Neogit" } },
+		{ "<leader>hg", "<cmd>Neogit<cr>", desc = "Neogit" },
 	},
 	opts = {
 		integrations = {

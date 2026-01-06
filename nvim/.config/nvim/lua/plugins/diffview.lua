@@ -13,7 +13,7 @@ return {
 	version = false,
 	lazy = true,
 	keys = {
-		{ "<Leader>hd", "<cmd>DiffviewToggle<cr>", { desc = "Show git diff" } },
+		{ "<Leader>hm", "<cmd>DiffviewToggle<cr>", desc = "Toggle Diffview" },
 	},
 	opts = {
 		enhanced_diff_hl = true,
