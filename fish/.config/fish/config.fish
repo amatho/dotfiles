@@ -23,4 +23,5 @@ if status is-interactive
     starship init fish | source
 
     source $__fish_config_dir/interactive.fish
+    source $__fish_config_dir/theme.fish
 end

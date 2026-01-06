@@ -1,3 +1,5 @@
+set --global fish_key_bindings fish_vi_key_bindings
+
 alias ls="eza"
 alias la="eza -la"
 alias ll="eza -l"
