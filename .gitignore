@@ -18,3 +18,7 @@ zsh/.config/zsh/zsh_platform.sh
 fish/.config/fish/conf.d/*
 fish/.config/fish/functions/*
 fish/.config/fish/completions/*
+
+# AWS
+aws/.aws/config
+aws/.aws/credentials
