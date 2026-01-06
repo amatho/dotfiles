@@ -18,7 +18,8 @@ pager = ["delta", "--pager", "less -FRX"]
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 conflict-marker-style = "git"
 
+# For diff and show, clear screen after exiting pager
 [[--scope]]
 --when.commands = ["diff", "show"]
 [--scope.ui]
-pager = "delta"
+pager = ["delta", "--pager", "less -FR"]
