@@ -11,7 +11,7 @@
 [fetch]
 	prune = true
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [push]
 	autoSetupRemote = true
 [interactive]
