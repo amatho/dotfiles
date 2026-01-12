@@ -51,5 +51,4 @@ nmap <M-,> <Action>(PreviousTab)
 nmap gr <Action>(GotoDeclaration)
 nmap <C-n> <Plug>NextWholeOccurrence
 xmap <C-n> <Plug>NextWholeOccurrence
-nmap <C-x> <Plug>SkipOccurrence
 xmap <C-x> <Plug>SkipOccurrence
