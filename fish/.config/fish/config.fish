@@ -1,16 +1,12 @@
 if status is-login
-    switch (uname)
-        case Darwin
-            source $__fish_config_dir/darwin.fish
-    end
+    test "$(uname)" = "Darwin"; and source $__fish_config_dir/darwin.fish
 
     # Make global Mise tools available in system PATH
     mise hook-env -s fish | source
 
-    source ~/.cargo/env.fish
+    test -e ~/.cargo/env.fish; and source ~/.cargo/env.fish
 
-    fish_add_path -P ~/.local/share/bob/nvim-bin
-    set -x EDITOR "nvim"
+    functions -q autostart-hyprland; and autostart-hyprland
 end
 
 if status is-interactive
@@ -21,6 +17,9 @@ if status is-interactive
 
     zoxide init fish | source
     starship init fish | source
+
+    fish_add_path -P ~/.local/share/bob/nvim-bin
+    set -x EDITOR "nvim"
 
     source $__fish_config_dir/interactive.fish
     source $__fish_config_dir/theme.fish
