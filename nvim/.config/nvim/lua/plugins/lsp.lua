@@ -1,9 +1,9 @@
 return {
-	"neovim/nvim-lspconfig",
+	"williamboman/mason-lspconfig.nvim",
 	dependencies = {
 		{ "williamboman/mason.nvim", opts = {} },
-		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		"neovim/nvim-lspconfig",
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	event = "VeryLazy",
@@ -35,94 +35,13 @@ return {
 			},
 		})
 
-		local servers = {
-			lua_ls = {
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
-			},
-			vtsls = {
-				root_markers = { "tsconfig.json", "jsconfig.json", ".git" },
-				settings = {
-					typescript = {
-						preferences = {
-							importModuleSpecifier = "relative",
-						},
-					},
-					javascript = {
-						preferences = {
-							importModuleSpecifier = "relative",
-						},
-					},
-					vtsls = {
-						autoUseWorkspaceTsdk = true,
-						experimental = {
-							completion = {
-								enableServerSideFuzzyMatch = true,
-							},
-						},
-					},
-				},
-			},
-			eslint = {},
-			terraformls = { root_markers = { ".git" } },
-			-- basedpyright = {
-			-- 	settings = {
-			-- 		basedpyright = {
-			-- 			diagnosticMode = "workspace",
-			-- 			-- Using Ruff's import organizer
-			-- 			disableOrganizeImports = true,
-			-- 			analysis = {
-			-- 				diagnosticSeverityOverrides = {
-			-- 					-- Turn off all lint-style checks
-			-- 					reportMissingImports = "none",
-			-- 					reportMissingTypeStubs = "none",
-			-- 					reportUnusedImport = "none",
-			-- 					reportUnusedClass = "none",
-			-- 					reportUnusedFunction = "none",
-			-- 					reportUnusedVariable = "none",
-			-- 					reportDuplicateImport = "none",
-			-- 					reportWildcardImportFromLibrary = "none",
-			-- 					reportUndefinedVariable = "none",
-			-- 					reportAssertAlwaysTrue = "none",
-			-- 					reportInvalidStringEscapeSequence = "none",
-			-- 					reportExplicitAny = "none",
-			-- 					reportAny = "none",
-			-- 					reportUnannotatedClassAttribute = "none",
-			-- 					reportUnusedCallResult = "none",
-			-- 				},
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
-			ruff = {},
-			ty = {},
-			-- pyrefly = {
-			-- 	settings = {
-			-- 		python = {
-			-- 			pyrefly = {
-			-- 				displayTypeErrors = "force-on",
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
-			rust_analyzer = {
-				settings = {
-					["rust-analyzer"] = {
-						check = {
-							command = "clippy",
-						},
-					},
-				},
-			},
-			gopls = {},
-		}
+		local config_path = vim.fn.stdpath("config")
+		local ensure_installed = vim.iter(vim.fs.dir(vim.fs.joinpath(config_path, "after", "lsp")))
+			:map(function(file)
+				return vim.fn.fnamemodify(file, ":r")
+			end)
+			:totable()
 
-		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua",
 			"prettierd",
@@ -130,14 +49,8 @@ return {
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-		for server_name, server in pairs(servers) do
+		for _, server_name in ipairs(ensure_installed) do
 			vim.lsp.enable(server_name)
-			vim.lsp.config(server_name, server)
-		end
-
-		-- Mason does not support installing nixd, so we configure it manually
-		if vim.fn.executable("nixd") == 1 then
-			vim.lsp.enable("nixd")
 		end
 
 		vim.api.nvim_create_autocmd("LspAttach", {
