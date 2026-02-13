@@ -1,11 +1,8 @@
 [tools]
 node = "lts"
 python = "latest"
-java = "25"
+java = "temurin"
 go = "latest"
 usage = "latest"
-terraform = "latest"
 deno = "latest"
 bun = "latest"
-"pipx:argcomplete" = "latest"
-uv = "latest"
