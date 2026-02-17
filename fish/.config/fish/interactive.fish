@@ -44,9 +44,13 @@ abbr -a jgfm "jj git fetch && jj new 'trunk()'"
 abbr -a jgi jj git init
 abbr -a jgp jj git push
 abbr -a jl jj log
+abbr -a jll jj log -r ::@
+abbr -a jlm "jj log -r '::trunk()'"
 abbr -a jn jj new
+abbr -a jnm "jj new 'trunk()'"
 abbr -a jrb jj rebase
 abbr -a jrs jj restore
+abbr -a jrv jj revert
 abbr -a jsp jj split
 abbr -a jsq jj squash
 abbr -a jst jj st
