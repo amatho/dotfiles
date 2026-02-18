@@ -4,9 +4,7 @@ return {
 		{ "williamboman/mason.nvim", opts = {} },
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"neovim/nvim-lspconfig",
-		{ "j-hui/fidget.nvim", opts = {} },
 	},
-	event = "VeryLazy",
 	config = function()
 		vim.diagnostic.config({
 			severity_sort = true,
@@ -36,12 +34,13 @@ return {
 		})
 
 		local config_path = vim.fn.stdpath("config")
-		local ensure_installed = vim.iter(vim.fs.dir(vim.fs.joinpath(config_path, "after", "lsp")))
+		local servers = vim.iter(vim.fs.dir(vim.fs.joinpath(config_path, "after", "lsp")))
 			:map(function(file)
 				return vim.fn.fnamemodify(file, ":r")
 			end)
 			:totable()
 
+		local ensure_installed = vim.deepcopy(servers)
 		vim.list_extend(ensure_installed, {
 			"stylua",
 			"prettierd",
@@ -49,7 +48,7 @@ return {
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-		for _, server_name in ipairs(ensure_installed) do
+		for _, server_name in ipairs(servers) do
 			vim.lsp.enable(server_name)
 		end
 
