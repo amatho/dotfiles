@@ -1,5 +1,5 @@
 if status is-login
-    test "$(uname)" = "Darwin"; and source $__fish_config_dir/darwin.fish
+    test "$(uname -s)" = "Darwin"; and /opt/homebrew/bin/brew shellenv | source
 
     # Make global Mise tools available in system PATH
     mise hook-env -s fish | source
@@ -12,6 +12,10 @@ end
 if status is-interactive
     set fish_greeting
 
+    if not set -q ZELLIJ
+        zellij
+    end
+
     # Activate Mise for interactive shells
     mise activate fish | source
 
@@ -21,6 +25,8 @@ if status is-interactive
     fish_add_path -P ~/.local/share/bob/nvim-bin
     set -x EDITOR "nvim"
 
-    source $__fish_config_dir/interactive.fish
+    set --global fish_key_bindings fish_vi_key_bindings
+
+    source $__fish_config_dir/aliases.fish
     source $__fish_config_dir/theme.fish
 end
