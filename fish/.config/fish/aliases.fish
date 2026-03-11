@@ -33,7 +33,7 @@ abbr -a jbm jj b m
 abbr -a jbf jj b f
 abbr -a jbt jj b t
 abbr -a jbu jj b u
-abbr -a jbmb "jj b m -f 'heads(::@- & bookmarks())' -t @-"
+abbr -a jba jj b a
 abbr -a jc jj commit
 abbr -a jd jj desc
 abbr -a jdf jj diff
