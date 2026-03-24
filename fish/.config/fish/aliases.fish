@@ -32,8 +32,9 @@ abbr -a jbs jj b s
 abbr -a jbm jj b m
 abbr -a jbf jj b f
 abbr -a jbt jj b t
-abbr -a jbu jj b u
+abbr -a jbu jj b untrack
 abbr -a jba jj b a
+abbr -a jbd jj b d
 abbr -a jc jj commit
 abbr -a jd jj desc
 abbr -a jdf jj diff
