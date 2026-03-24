@@ -7,7 +7,7 @@ case '*'
     set ignored_packages aerospace skhd
 end
 
-set no_fold_packages aws helix
+set no_fold_packages aws codex helix
 
 for dir in ./*/
     set package (basename $dir)
