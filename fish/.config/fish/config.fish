@@ -11,6 +11,7 @@ end
 
 if status is-interactive
     set fish_greeting
+    type -q nvim; and set -x EDITOR "nvim"
 
     if not set -q ZELLIJ
         zellij
@@ -23,7 +24,6 @@ if status is-interactive
     starship init fish | source
 
     fish_add_path -P ~/.local/share/bob/nvim-bin
-    set -x EDITOR "nvim"
 
     set --global fish_key_bindings fish_vi_key_bindings
 
