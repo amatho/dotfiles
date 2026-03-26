@@ -23,8 +23,6 @@ if status is-interactive
     zoxide init fish | source
     starship init fish | source
 
-    fish_add_path -P ~/.local/share/bob/nvim-bin
-
     set --global fish_key_bindings fish_vi_key_bindings
 
     source $__fish_config_dir/aliases.fish
