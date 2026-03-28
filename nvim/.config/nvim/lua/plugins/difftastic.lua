@@ -17,7 +17,7 @@ return {
 		})
 	end,
 	keys = {
-		{ "<Leader>hd", "<cmd>DifftToggle<cr>", desc = "Toggle difftastic" },
+		{ "<Leader>ht", "<cmd>DifftToggle<cr>", desc = "Toggle difftastic" },
 	},
 	lazy = false,
 }
