@@ -21,6 +21,10 @@ conflict-marker-style = "git"
 [revsets]
 bookmark-advance-to = "@-"
 
+[revset-aliases]
+'my_bookmarks()' = 'bookmarks() & user_name(regex-i:"^amandus (søve )?thorsrud$")'
+'user_name(x)' = 'author_name(x) | committer_name(x)'
+
 # For diff and show, clear screen after exiting pager
 [[--scope]]
 --when.commands = ["diff", "show"]
