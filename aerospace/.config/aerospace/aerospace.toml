@@ -1,4 +1,5 @@
-after-login-command = []
+config-version = 2
+
 after-startup-command = []
 start-at-login = true
 enable-normalization-flatten-containers = true
@@ -8,6 +9,7 @@ default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 on-focus-changed = ['move-mouse window-lazy-center']
 automatically-unhide-macos-hidden-apps = true
+persistent-workspaces = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 [key-mapping]
     preset = 'qwerty'
