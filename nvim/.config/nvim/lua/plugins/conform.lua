@@ -52,7 +52,7 @@ return {
 				["html"] = { "oxfmt", "prettierd", "prettier" },
 				["json"] = { "oxfmt", "biome", "prettierd", "prettier" },
 				["jsonc"] = { "oxfmt", "biome", "prettierd", "prettier" },
-				["yaml"] = { "oxfmt", "prettierd", "prettier" },
+				["yaml"] = { "yamlfmt", "oxfmt", "prettierd", "prettier" },
 				["markdown"] = { "oxfmt", "prettierd", "prettier" },
 				["markdown.mdx"] = { "oxfmt", "prettierd", "prettier" },
 				["graphql"] = { "oxfmt", "biome", "prettierd", "prettier" },

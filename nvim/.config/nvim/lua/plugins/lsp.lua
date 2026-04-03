@@ -42,8 +42,9 @@ return {
 
 		local ensure_installed = vim.deepcopy(servers)
 		vim.list_extend(ensure_installed, {
-			"stylua",
 			"prettierd",
+			"stylua",
+			"yamlfmt",
 		})
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
