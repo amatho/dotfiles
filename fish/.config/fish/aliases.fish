@@ -36,6 +36,7 @@ abbr -a jbu jj b untrack
 abbr -a jba jj b a
 abbr -a jbd jj b d
 abbr -a jc jj commit
+abbr -a --set-cursor jcm jj commit -m \"%\"
 abbr -a jcl jj git clone
 abbr -a jd jj desc
 abbr -a jdf jj diff
@@ -50,6 +51,7 @@ abbr -a jlm "jj log -r '::trunk()'"
 abbr -a jn jj new
 abbr -a jne jj next
 abbr -a jnm "jj new 'trunk()'"
+abbr -a jnmy "jj new 'my_bookmarks()'"
 abbr -a jp jj git push
 abbr -a jpr jj prev
 abbr -a jrb jj rebase
