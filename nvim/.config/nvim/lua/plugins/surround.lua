@@ -1,5 +1,24 @@
 return {
 	"kylechui/nvim-surround",
 	event = "BufEnter",
-	config = true,
+	opts = {
+		surrounds = {
+			["("] = {
+				add = { "(", ")" },
+				delete = "^(.)().-(.)()$",
+			},
+			["{"] = {
+				add = { "{", "}" },
+				delete = "^(.)().-(.)()$",
+			},
+			["<"] = {
+				add = { "<", ">" },
+				delete = "^(.)().-(.)()$",
+			},
+			["["] = {
+				add = { "[", "]" },
+				delete = "^(.)().-(.)()$",
+			},
+		},
+	},
 }
