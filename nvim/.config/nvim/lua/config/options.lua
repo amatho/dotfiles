@@ -42,3 +42,4 @@ opt.completeopt = "menu,menuone"
 opt.ruler = false
 opt.grepprg = "rg --vimgrep"
 opt.grepformat = "%f:%l:%c:%m"
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
