@@ -44,6 +44,7 @@ return {
 		vim.list_extend(ensure_installed, {
 			"prettierd",
 			"stylua",
+			"tree-sitter-cli",
 			"yamlfmt",
 		})
 
