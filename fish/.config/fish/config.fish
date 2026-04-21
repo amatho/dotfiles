@@ -13,7 +13,7 @@ if status is-interactive
     set fish_greeting
     type -q nvim; and set -x EDITOR "nvim"
 
-    if not set -q ZELLIJ
+    if not set -q ZELLIJ; and test "$TERM_PROGRAM" = "ghostty"
         zellij
     end
 
