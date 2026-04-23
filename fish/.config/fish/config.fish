@@ -15,6 +15,15 @@ if status is-interactive
 
     if not set -q ZELLIJ; and test "$TERM_PROGRAM" = "ghostty"
         zellij
+    else if set -q ZELLIJ
+        function __zellij_update_tab_name --on-variable PWD --description "Rename Zellij tab to git repo root"
+            set -l git_root (git rev-parse --show-toplevel 2>/dev/null)
+            test -z "$git_root"; and set git_root $PWD
+            set -l root_basename (basename $git_root)
+            nohup zellij action rename-tab $root_basename >/dev/null 2>&1 &; disown 2>/dev/null
+        end
+
+        __zellij_update_tab_name
     end
 
     # Activate Mise for interactive shells
