@@ -6,7 +6,7 @@ if status is-login
 
     test -e ~/.cargo/env.fish; and source ~/.cargo/env.fish
 
-    functions -q autostart-hyprland; and autostart-hyprland
+    functions -q autostart-compositor; and autostart-compositor
 end
 
 if status is-interactive
