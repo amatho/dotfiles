@@ -6,8 +6,12 @@ set $right l
 set $term ghostty
 set $menu wofi --show drun
 set $browser firefox
+set $fileManager dolphin
 
 exec uwsm app -s b -- swaync
+
+exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 
 output DP-4 {
     resolution 2560x1440@240Hz
@@ -20,11 +24,17 @@ input type:keyboard {
     xkb_layout "no"
 }
 
+input type:pointer {
+    pointer_accel 0.5
+    accel_profile flat
+}
+
 floating_modifier $mod normal
 
 bindsym $mod+Space exec $menu
 bindsym $mod+b exec $browser
 bindsym $mod+t exec $term
+bindsym $mod+e exec $fileManager
 bindsym $mod+w kill
 bindsym $mod+Shift+Comma reload
 bindsym $mod+Ctrl+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'uwsm stop'
@@ -90,6 +100,14 @@ bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@
 bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# Workaround for xwaylandvideobridge (https://wiki.hyprland.org/Useful-Utilities/Screen-Sharing/#xwayland)
+for_window [class="xwaylandvideobridge"] floating enable, move position 0 0, resize set 1 1, opacity 0
+no_focus [class="xwaylandvideobridge"]
 
 bar {
     position top
