@@ -2,7 +2,7 @@
 
 switch (uname)
 case Darwin
-    set ignored_packages hyprland
+    set ignored_packages hyprland sway uwsm
 case '*'
     set ignored_packages aerospace skhd
 end
