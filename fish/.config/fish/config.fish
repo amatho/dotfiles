@@ -16,16 +16,13 @@ if status is-interactive
     if not set -q ZELLIJ; and test "$TERM_PROGRAM" = "ghostty"
         zellij
     else if set -q ZELLIJ
+        if type -q jq
+            set zellij_tab_id (zellij action current-tab-info --json | jq -r '.tab_id | tostring | . + ":"')
+        end
+
         function __zellij_update_tab_name --on-variable PWD --description "Rename Zellij tab to git repo root"
-            set repo_root (git rev-parse --show-toplevel 2>/dev/null)
-            test -z "$repo_root"; and set repo_root $PWD
-            set root_basename (basename $repo_root)
-
-            if type -q jq
-                set zellij_tab_id (zellij action current-tab-info --json 2>/dev/null | jq -r .tab_id)
-            end
-
-            nohup zellij action rename-tab "$root_basename $zellij_tab_id" >/dev/null 2>&1 &; disown 2>/dev/null
+            set pwd_basename (basename $PWD)
+            nohup zellij action rename-tab "$zellij_tab_id$pwd_basename" >/dev/null 2>&1 &; disown 2>/dev/null
         end
 
         __zellij_update_tab_name
