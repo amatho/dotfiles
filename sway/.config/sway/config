@@ -13,7 +13,7 @@ exec uwsm app -s b -- swaync
 exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 
-output DP-4 {
+output DP-1 {
     resolution 2560x1440@240Hz
     adaptive_sync on
 }
