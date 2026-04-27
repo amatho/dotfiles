@@ -53,8 +53,10 @@ abbr -a jne jj next
 abbr -a jnm "jj new 'trunk()'"
 abbr -a jnmy "jj new 'my_bookmarks()'"
 abbr -a jp jj git push
+abbr -a jpa jj git push --all
 abbr -a jpr jj prev
 abbr -a jrb jj rebase
+abbr -a jrbm "jj rebase -o 'trunk()'"
 abbr -a jrs jj restore
 abbr -a jrv jj revert
 abbr -a jsp jj split
