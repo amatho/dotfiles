@@ -22,6 +22,7 @@ keybinds clear-defaults=true {
     search {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
         bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
         bind "o" { SearchToggleOption "WholeWord"; }
         bind "p" { Search "up"; }
         bind "w" { SearchToggleOption "Wrap"; }
@@ -42,16 +43,15 @@ keybinds clear-defaults=true {
             SwitchToMode "normal"
         }
         bind "d" { Detach; }
-        bind "Ctrl o" { SwitchToMode "normal"; }
-        bind "p" {
-            LaunchOrFocusPlugin "plugin-manager" {
+        bind "o" {
+            LaunchOrFocusPlugin "session-manager" {
                 floating true
                 move_to_focused_tab true
             }
             SwitchToMode "normal"
         }
-        bind "w" {
-            LaunchOrFocusPlugin "session-manager" {
+        bind "p" {
+            LaunchOrFocusPlugin "plugin-manager" {
                 floating true
                 move_to_focused_tab true
             }
@@ -61,7 +61,6 @@ keybinds clear-defaults=true {
     shared_except "locked" {
         bind "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
-        bind "Alt =" { Resize "Increase"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt f" { ToggleFloatingPanes; }
@@ -73,7 +72,6 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
-        bind "Ctrl q" { Quit; }
     }
     shared_except "locked" "tmux" {
         bind "Ctrl a" { SwitchToMode "tmux"; }
