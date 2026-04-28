@@ -14,7 +14,7 @@ if status is-interactive
     type -q nvim; and set -x EDITOR "nvim"
 
     if not set -q ZELLIJ; and test "$TERM_PROGRAM" = "ghostty"
-        exec zellij
+        tmux
     else if set -q ZELLIJ
         if type -q jq
             set zellij_tab_id (zellij action current-tab-info --json | jq -r '.tab_id | tostring | . + ":"')
