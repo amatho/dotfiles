@@ -7,7 +7,7 @@ case '*'
     set ignored_packages aerospace skhd
 end
 
-set no_fold_packages aws codex helix
+set no_fold_packages aws codex helix tmux
 
 for dir in ./*/
     set package (basename $dir)
