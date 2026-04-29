@@ -9,8 +9,3 @@ zsh/.config/zsh/.zsh_sessions/
 zsh/.config/zsh/.zsh_history
 zsh/.config/zsh/.zsh_plugins.zsh
 zsh/.config/zsh/zsh_platform.sh
-
-# Fish
-fish/.config/fish/conf.d/*
-fish/.config/fish/functions/*
-fish/.config/fish/completions/*
