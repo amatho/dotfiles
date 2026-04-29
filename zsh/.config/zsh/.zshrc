@@ -1,4 +1,4 @@
-source "$ZDOTDIR/zsh_platform.sh"
+[ -f "$ZDOTDIR/zsh_platform.sh" ] && source "$ZDOTDIR/zsh_platform.sh"
 
 export NVM_LAZY_LOAD=true
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
