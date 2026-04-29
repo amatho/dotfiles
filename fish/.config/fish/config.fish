@@ -13,19 +13,8 @@ if status is-interactive
     set fish_greeting
     type -q nvim; and set -x EDITOR "nvim"
 
-    if not set -q ZELLIJ; and test "$TERM_PROGRAM" = "ghostty"
+    if test "$TERM_PROGRAM" = "ghostty"
         tmux
-    else if set -q ZELLIJ
-        if type -q jq
-            set zellij_tab_id (zellij action current-tab-info --json | jq -r '.tab_id | tostring | . + ":"')
-        end
-
-        function __zellij_update_tab_name --on-variable PWD --description "Rename Zellij tab to git repo root"
-            set pwd_basename (basename $PWD)
-            nohup zellij action rename-tab "$zellij_tab_id$pwd_basename" >/dev/null 2>&1 &; disown 2>/dev/null
-        end
-
-        __zellij_update_tab_name
     end
 
     # Activate Mise for interactive shells
