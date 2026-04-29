@@ -9,22 +9,22 @@ if status is-login
     functions -q autostart-compositor; and autostart-compositor
 end
 
-if status is-interactive
-    set fish_greeting
-    type -q nvim; and set -x EDITOR "nvim"
+status is-interactive; or return
 
-    if test "$TERM_PROGRAM" = "ghostty"
-        tmux
-    end
+set fish_greeting
+set -x EDITOR "nvim"
 
-    # Activate Mise for interactive shells
-    mise activate fish | source
-
-    zoxide init fish | source
-    starship init fish | source
-
-    set --global fish_key_bindings fish_vi_key_bindings
-
-    source $__fish_config_dir/aliases.fish
-    source $__fish_config_dir/theme.fish
+if test "$TERM_PROGRAM" = "ghostty"
+    tmux
 end
+
+# Activate Mise for interactive shells
+mise activate fish | source
+
+zoxide init fish | source
+starship init fish | source
+
+set --global fish_key_bindings fish_vi_key_bindings
+
+source $__fish_config_dir/aliases.fish
+source $__fish_config_dir/theme.fish
