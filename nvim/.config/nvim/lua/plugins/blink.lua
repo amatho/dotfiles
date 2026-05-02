@@ -1,6 +1,7 @@
 return {
 	"saghen/blink.cmp",
-	build = "cargo +nightly build --release",
+	version = "1.*",
+	-- build = "cargo +nightly build --release",
 	event = { "InsertEnter", "CmdlineEnter" },
 	opts = {
 		cmdline = {
