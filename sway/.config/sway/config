@@ -37,7 +37,8 @@ bindsym $mod+t exec $term
 bindsym $mod+e exec $fileManager
 bindsym $mod+w kill
 bindsym $mod+Shift+Comma reload
-bindsym $mod+Ctrl+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'uwsm stop'
+bindsym $mod+Ctrl+q exec swaynag -t warning -m 'Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'uwsm stop'
+bindsym $mod+Ctrl+Escape exec swaynag -t warning -m 'Do you really want to power off?' -B 'Yes, power off' 'poweroff'
 
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
