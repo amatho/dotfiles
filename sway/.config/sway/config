@@ -14,7 +14,7 @@ exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 
 output DP-1 {
-    resolution 2560x1440@240Hz
+    resolution 2560x1440@239.998Hz
     adaptive_sync on
 }
 
