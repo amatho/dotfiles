@@ -24,6 +24,11 @@ input type:keyboard {
     xkb_layout "no"
 }
 
+input "1452:592:Keychron_Keychron_K2" {
+    xkb_layout "no"
+    xkb_options caps:escape
+}
+
 input type:pointer {
     pointer_accel 0.5
     accel_profile flat
