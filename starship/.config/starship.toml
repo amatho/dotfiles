@@ -1,7 +1,6 @@
+add_newline = false
+
 format = """
-$username\
-$hostname\
-$localip\
 $directory\
 ${custom.jj_bookmarks}\
 ${custom.jj_status}\
@@ -9,7 +8,13 @@ ${custom.git_branch}\
 ${custom.git_commit}\
 $git_state\
 ${custom.git_metrics}\
-${custom.git_status}\
+${custom.git_status} \
+$character"""
+
+right_format = """
+$username\
+$hostname\
+$localip\
 $memory_usage\
 $aws\
 $kubernetes\
@@ -17,14 +22,12 @@ $direnv\
 $env_var\
 $custom\
 $sudo\
-$line_break\
 $jobs\
 $battery\
 $time\
 $status\
 $os\
-$shell\
-$character"""
+$shell"""
 
 [custom.jj_bookmarks]
 command = '''
@@ -135,6 +138,9 @@ format = '\[[$symbol($version)]($style)\]'
 
 [deno]
 format = '\[[$symbol($version)]($style)\]'
+
+[directory]
+format = "[$path]($style)[$read_only]($read_only_style)"
 
 [direnv]
 format = '\[[$symbol$loaded/$allowed]($style)\]'
