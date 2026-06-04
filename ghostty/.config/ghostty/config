@@ -27,8 +27,3 @@ keybind = alt+9=text:]
 keybind = shift+alt+physical:seven=text:\\
 keybind = shift+alt+8=text:{
 keybind = shift+alt+9=text:}
-
-# super+q sends meta+q
-keybind = super+q=text:\x1Bq
-# super+w sends meta+w
-keybind = super+w=text:\x1Bw
