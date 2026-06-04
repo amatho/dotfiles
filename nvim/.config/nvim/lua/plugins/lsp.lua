@@ -50,8 +50,12 @@ return {
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+		local disabled = { pyrefly = true, ty = true }
+
 		for _, server_name in ipairs(servers) do
-			vim.lsp.enable(server_name)
+			if not disabled[server_name] then
+				vim.lsp.enable(server_name)
+			end
 		end
 
 		vim.api.nvim_create_autocmd("LspAttach", {
