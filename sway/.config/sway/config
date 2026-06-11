@@ -5,7 +5,7 @@ set $up k
 set $right l
 set $term ghostty
 set $menu wofi --show drun
-set $browser firefox
+set $browser zen-browser
 set $fileManager dolphin
 
 exec uwsm app -s b -- swaync
