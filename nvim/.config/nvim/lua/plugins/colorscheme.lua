@@ -4,6 +4,7 @@ return {
 	priority = 1000,
 	config = function()
 		require("tairiki").setup({
+			transparent = true,
 			plugins = {
 				auto = true,
 			},
