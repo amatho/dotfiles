@@ -48,6 +48,7 @@ abbr -a jgi jj git init
 abbr -a jl jj log
 abbr -a jll jj log -r ::@
 abbr -a jlm "jj log -r '::trunk()'"
+abbr -a jltm "jj log -r 'heads(::@ & ::trunk())::(@ | trunk())'"
 abbr -a jn jj new
 abbr -a jne jj next
 abbr -a jnm "jj new 'trunk()'"
