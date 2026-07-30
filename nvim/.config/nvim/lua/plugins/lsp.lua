@@ -1,10 +1,5 @@
 return {
-	"williamboman/mason-lspconfig.nvim",
-	dependencies = {
-		{ "williamboman/mason.nvim", opts = {} },
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		"neovim/nvim-lspconfig",
-	},
+	"neovim/nvim-lspconfig",
 	config = function()
 		vim.diagnostic.config({
 			severity_sort = true,
@@ -39,16 +34,6 @@ return {
 				return vim.fn.fnamemodify(file, ":r")
 			end)
 			:totable()
-
-		local ensure_installed = vim.deepcopy(servers)
-		vim.list_extend(ensure_installed, {
-			"prettierd",
-			"stylua",
-			"tree-sitter-cli",
-			"yamlfmt",
-		})
-
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		local disabled = { pyrefly = true, ty = true }
 
