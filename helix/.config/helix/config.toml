@@ -3,6 +3,7 @@ theme = "onedark"
 [editor]
 line-number = "relative"
 bufferline = "multiple"
+cursorline = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -11,6 +12,6 @@ normal = "block"
 [editor.statusline]
 left = ["mode", "spinner", "file-name", "version-control"]
 
-[keys.insert]
-j = { k = "normal_mode" }
-k = { j = "normal_mode" }
+[keys.normal]
+C-j = "@5j"
+C-k = "@5k"
