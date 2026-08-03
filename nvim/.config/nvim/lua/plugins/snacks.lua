@@ -41,6 +41,20 @@ return {
 			desc = "Keymaps",
 		},
 		{
+			"<leader>?l",
+			function()
+				Snacks.picker.keymaps({ global = false, ["local"] = true })
+			end,
+			desc = "Keymaps (only local)",
+		},
+		{
+			"<leader>sr",
+			function()
+				Snacks.picker.keymaps()
+			end,
+			desc = "Resume picker",
+		},
+		{
 			"<M-w>",
 			function()
 				Snacks.bufdelete()
