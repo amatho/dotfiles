@@ -22,8 +22,7 @@ conflict-marker-style = "git"
 bookmark-advance-to = "@-"
 
 [revset-aliases]
-'my_bookmarks()' = 'bookmarks() & user_name(regex-i:"^amandus (søve )?thorsrud$")'
-'user_name(x)' = 'author_name(x) | committer_name(x)'
+'my_bookmarks()' = 'bookmarks() & mine()'
 
 # For diff and show, clear screen after exiting pager
 [[--scope]]
