@@ -27,17 +27,17 @@ abbr -a grst git reset
 
 abbr -a jab jj abandon
 abbr -a jabs jj absorb
-abbr -a jbl jj b l
-abbr -a jbs jj b s
-abbr -a jbm jj b m
-abbr -a jbf jj b f
-abbr -a jbt jj b t
-abbr -a jbu jj b untrack
 abbr -a jba jj b a
 abbr -a jbd jj b d
+abbr -a jbf jj b f
+abbr -a jbl jj b l
+abbr -a jbm jj b m
+abbr -a jbs jj b s
+abbr -a jbt jj b t
+abbr -a jbu jj b untrack
 abbr -a jc jj commit
-abbr -a --set-cursor jcm jj commit -m \"%\"
 abbr -a jcl jj git clone
+abbr -a --set-cursor jcm jj commit -m \"%\"
 abbr -a jd jj desc
 abbr -a jdf jj diff
 abbr -a jdfe jj diffedit
@@ -60,6 +60,7 @@ abbr -a jrb jj rebase
 abbr -a jrbm "jj rebase -o 'trunk()'"
 abbr -a jrs jj restore
 abbr -a jrv jj revert
+abbr -a jsh jj show
 abbr -a jsp jj split
 abbr -a jsq jj squash
 abbr -a jst jj st
