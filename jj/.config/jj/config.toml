@@ -24,6 +24,9 @@ bookmark-advance-to = "@-"
 [revset-aliases]
 'my_bookmarks()' = 'bookmarks() & mine()'
 
+[aliases]
+spr = ["util", "exec", "--", "jj-spr"]
+
 # For diff and show, clear screen after exiting pager
 [[--scope]]
 --when.commands = ["diff", "show"]
