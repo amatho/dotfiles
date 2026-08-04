@@ -29,3 +29,6 @@ bookmark-advance-to = "@-"
 --when.commands = ["diff", "show"]
 [--scope.ui]
 pager = ["delta", "--pager", "less -FR"]
+
+[aliases]
+spr = ["util", "exec", "--", "jj-spr"]
