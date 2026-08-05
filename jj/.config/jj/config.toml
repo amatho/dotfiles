@@ -17,6 +17,13 @@ diff-formatter = ["difft", "--color=always", "$left", "$right"]
 pager = ["delta", "--pager", "less -FRX"]
 diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
 conflict-marker-style = "git"
+merge-editor = "diffview"
+
+[merge-tools.diffview]
+program = "nvim"
+merge-args = ["-c", "DiffviewMergeFiles $output $base $left $right"]
+merge-tool-edits-conflict-markers = true
+conflict-marker-style = "git"
 
 [revsets]
 bookmark-advance-to = "@-"
