@@ -65,7 +65,7 @@ abbr -a jsp jj split
 abbr -a jsq jj squash
 abbr -a jst jj st
 
-abbr -a tfa terraform apply
-abbr -a tfi terraform init
-abbr -a tfp terraform plan
-abbr -a tf terraform
+abbr -a tfa tofu apply
+abbr -a tfi tofu init
+abbr -a tfp tofu plan
+abbr -a tf tofu
