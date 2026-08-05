@@ -50,7 +50,7 @@ return {
 		{
 			"<leader>sr",
 			function()
-				Snacks.picker.keymaps()
+				Snacks.picker.resume()
 			end,
 			desc = "Resume picker",
 		},
