@@ -13,6 +13,7 @@ status is-interactive; or return
 
 set fish_greeting
 set -x EDITOR "nvim"
+set -x K9S_CONFIG_DIR "$HOME/.config/k9s"
 
 if test "$TERM_PROGRAM" = "ghostty"
     tmux
