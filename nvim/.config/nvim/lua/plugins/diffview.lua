@@ -9,6 +9,7 @@ return {
 		"DiffviewToggle",
 		"DiffviewFileHistory",
 		"DiffviewDiffFiles",
+		"DiffviewDiffDirs",
 		"DiffviewLog",
 		"DiffviewMergeFiles",
 	},

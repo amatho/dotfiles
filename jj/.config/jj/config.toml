@@ -15,15 +15,19 @@ sign-on-push = true
 [ui]
 diff-formatter = ["difft", "--color=always", "$left", "$right"]
 pager = ["delta", "--pager", "less -FRX"]
-diff-editor = ["nvim", "-c", "DiffEditor $left $right $output"]
-conflict-marker-style = "git"
+diff-editor = "hunk"
 merge-editor = "diffview"
+conflict-marker-style = "git"
+
+[merge-tools.hunk]
+program = "nvim"
+edit-args = ["-c", "DiffEditor $left $right $output"]
 
 [merge-tools.diffview]
 program = "nvim"
 merge-args = ["-c", "DiffviewMergeFiles $output $base $left $right"]
+edit-args = ["-c", "DiffviewDiffDirs $left $right $output"]
 merge-tool-edits-conflict-markers = true
-conflict-marker-style = "git"
 
 [revsets]
 bookmark-advance-to = "@-"
