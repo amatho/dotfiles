@@ -7,7 +7,7 @@ case '*'
     set ignored_packages aerospace skhd
 end
 
-set no_fold_packages aws codex fish helix ssh tmux
+set fold_packages nvim zsh
 
 for dir in ./*/
     set package (basename $dir)
@@ -17,11 +17,11 @@ for dir in ./*/
         continue
     end
 
-    if contains $package $no_fold_packages
-        echo -e "\033[0;32mINFO: stowing package $package without folding\033[0m"
-        stow $package -t $HOME --no-folding
-    else
+    if contains $package $fold_packages
         echo -e "\033[0;32mINFO: stowing package $package\033[0m"
         stow $package -t $HOME
+    else
+        echo -e "\033[0;32mINFO: stowing package $package without folding\033[0m"
+        stow $package -t $HOME --no-folding
     end
 end
