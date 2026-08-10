@@ -1,5 +1,4 @@
 return {
-	root_markers = { "tsconfig.json", "jsconfig.json", ".git" },
 	settings = {
 		typescript = {
 			preferences = {
