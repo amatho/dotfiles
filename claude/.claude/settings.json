@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(jj diff *)",
+      "Bash(jj show *)",
+      "Bash(jj log *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr diff *)",
+    ]
+  },
+  "model": "opus[1m]",
+  "hooks": {
+    "PreToolUse": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "jq -r '\"\\(.model.display_name) \\(.context_window.used_percentage // 0)% context\"'"
+  },
+  "enabledPlugins": {},
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "autoMemoryEnabled": false,
+  "skipWorkflowUsageWarning": true,
+  "editorMode": "vim",
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "skillOverrides": {
+    "code-review": "user-invocable-only"
+  }
+}
