@@ -7,7 +7,7 @@
       "Bash(jj show *)",
       "Bash(jj log *)",
       "Bash(gh pr view *)",
-      "Bash(gh pr diff *)",
+      "Bash(gh pr diff *)"
     ]
   },
   "model": "opus[1m]",
