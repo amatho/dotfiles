@@ -11,6 +11,9 @@
     ]
   },
   "model": "opus[1m]",
+  "skillOverrides": {
+    "code-review": "user-invocable-only"
+  },
   "hooks": {
     "PreToolUse": []
   },
@@ -27,7 +30,44 @@
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "skillOverrides": {
-    "code-review": "user-invocable-only"
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: NDLANO (NDLA — Nasjonal digital læringsarena, ndla.no)",
+      "**Cloud provider(s)**: AWS (CI secret names reference AWS client credentials and an ECR repo); Vercel and Docker Hub tokens also referenced in CI config",
+      "**Repository visibility**: `NDLANO/ndla` is PUBLIC (confirmed via gh) — any push or commit there is publishing. Other NDLANO repos seen via gh: PUBLIC — `oppetid`, `editorial-frontend`, `h5p-caretaker-client`, `h5p-vocabulary-drill`, `h5p-topic-map-set`, `h5p-topic-map`, `h5p-summary-keywords`, `h5p-sequence-process`, `h5p-resource-list`, `h5p-ndla-timeline`, `h5p-ndla-three-sixty`, `h5p-keyword-selector`, `h5p-escape-room`, `h5p-editor-uuid`, `h5p-editor-topic-map`, `h5p-editor-sequence-process`, `h5p-editor-select-buttons`, `h5p-editor-ndla-timeline`, `h5p-editor-locale-selector`; PRIVATE — `deploy`, `ndla-ki-wp-plugins`. Repos not listed here: assume private unless a visibility check shows otherwise.",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured. Observed only as names, never values: CI secrets `CI_AWS_CLIENT_ID`, `CI_AWS_CLIENT_SECRET`, `CI_GITHUB_TOKEN`, `CI_NOW_GH_TOKEN`, `CI_RELEASE_ROLE`, `DOCKER_HUB_USERNAME`, `DOCKER_HUB_PASSWORD`, `KNOWIT_EMAIL`, `NDLA_AWS_ECR_REPO`, `NDLA_RELEASES`, `VERCEL_TOKEN`; and local dotenv files `backend/.env` plus per-service `backend/.env.article-api`, `.env.audio-api`, `.env.concept-api`, `.env.draft-api`, `.env.frontpage-api`, `.env.image-api`, `.env.learningpath-api`, `.env.myndla-api`, `.env.oembed-proxy`, `.env.search-api`, `.env.taxonomy-api` — treat all of these as secret-bearing: never read out, echo, commit, or transmit their contents.",
+      "**Default / protected branches**: Not determinable — `origin/HEAD` unset locally and the gh API lists no rulesets and no classic protected branches for `NDLANO/ndla`. Treat the repository's default branch as protected in practice and require confirmation before force-pushing or rewriting shared history.",
+      "**CI/CD deploy targets**: None configured — GitHub Actions workflows exist in `.github/workflows`, and CI secret names imply AWS ECR image pushes, Docker Hub, and Vercel deploys, but no target environment was confirmed by usage.",
+      "**Network posture**: None configured",
+      "**Source control**: GitHub, org `NDLANO` — `github.com:NDLANO/ndla` (this repo's origin) and the sibling NDLANO repos listed under Repository visibility. Version control is normally done with Jujutsu (`jj`) on colocated repos; `jj git push` / `jj git fetch` are the remote paths.",
+      "**Trusted internal domains**: ndla.no and subdomains (api.ndla.no, status.ndla.no), ndla-ki.no",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: NDLA backend JVM services under `backend/` (article-api, audio-api, concept-api, draft-api, frontpage-api, image-api, learningpath-api, myndla-api, oembed-proxy, search-api, taxonomy-api) and the frontend TypeScript/React workspace under `frontend/`; public endpoints ndla.no and api.ndla.no",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar. Concretely here: the `backend/.env*` files, CI secret values, and any learner/user data reachable through myndla-api.",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment (hyphen/underscore/dot-delimited — e.g. matches `prod-db`, not `producer`); plus the live public endpoints ndla.no, api.ndla.no, ndla-ki.no",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment. OpenTofu/Terraform (`tofu`) is used in this environment, so apply/destroy on these scopes needs confirmation.",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development on the NDLA monorepo (JVM/Mill backend services and TypeScript/React frontend workspace), with occasional infrastructure work via `tofu`, `kubectl`, `gh` and `docker`",
+      "**Trusted repo**: `~/code/work/ndla` (remote `github.com:NDLANO/ndla`). This repo is PUBLIC, so only this repo's own work belongs in commits or pushes there; content ported, repointed, or first read from outside this session's repo is not its own work, whoever directed the port. Visibility scopes confidential material only: secrets and sensitive data (personal & entrusted) are never cleared into any repo by its visibility — in particular nothing from `backend/.env*` may be committed.",
+      "**Org-specific CLIs**: `jj` (Jujutsu — the preferred VCS front end; check for `.jj` before assuming git), `mill` (JVM builds), `mise` (toolchain pinning via `mise.toml`), `yarn` (frontend workspace), `tofu` (OpenTofu IaC), `kubectl`, `gh`, `docker`",
+      "**Routine under `~/code/work/` prefix**: work checkouts live under `~/code/work/`"
+    ],
+    "allow": [
+      "$defaults",
+      "Bash(jj st:*)",
+      "Bash(jj log:*)",
+      "Bash(jj diff:*)",
+      "Bash(mise install:*)"
+    ],
+    "hard_deny": [
+      "$defaults",
+      "Bash(jj git push:*)",
+      "Bash(tofu destroy:*)"
+    ]
   }
 }
