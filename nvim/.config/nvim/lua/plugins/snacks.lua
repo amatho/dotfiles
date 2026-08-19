@@ -82,10 +82,6 @@ return {
 			},
 			sources = {
 				grep = {
-					-- Hide text match from grep result
-					transform = function(item)
-						item.line = nil
-					end,
 					hidden = true,
 				},
 				files = {
