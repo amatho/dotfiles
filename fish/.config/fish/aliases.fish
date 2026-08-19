@@ -60,8 +60,12 @@ abbr -a jrb jj rebase
 abbr -a jrbm "jj rebase -o 'trunk()'"
 abbr -a jrs jj restore
 abbr -a jrv jj revert
+abbr -a jsd jj spr diff
+abbr -a jsdc jj spr diff --cherry-pick
 abbr -a jsh jj show
+abbr -a jsl jj spr land
 abbr -a jsp jj split
+abbr -a jspr jj spr
 abbr -a jsq jj squash
 abbr -a jst jj st
 
