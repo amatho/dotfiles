@@ -3,6 +3,7 @@ alias la="eza -la"
 alias ll="eza -l"
 alias cat="bat"
 alias vim="nvim"
+alias pn="pnpm" # Fix completions for pnpm's `pn` alias
 
 abbr -a g git
 abbr -a gst git status
