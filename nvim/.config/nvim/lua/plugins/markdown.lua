@@ -1,9 +1,9 @@
 return {
 	"MeanderingProgrammer/render-markdown.nvim",
 	dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-	ft = { "markdown", "codecompanion" },
+	ft = { "markdown" },
 	opts = {
-		file_types = { "markdown", "codecompanion" },
+		file_types = { "markdown" },
 		overrides = {
 			buftype = {
 				nofile = {
