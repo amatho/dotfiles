@@ -8,5 +8,5 @@ function millto
     end
     set selector_inner (string join "*" $cap_args)
     set selector "*$selector_inner*Test"
-    CI=true ./mill "$argv[1].test.testOnly" $selector
+    ./mill "$argv[1].test.testOnly" $selector
 end

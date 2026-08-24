@@ -1,3 +1,3 @@
 function mill
-    CI=true ./mill $argv
+    ./mill $argv
 end
