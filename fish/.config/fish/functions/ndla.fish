@@ -1,3 +1,3 @@
 function ndla
-    uv --directory "$NDLA_DEPLOY" run ndla $argv
+    uv --project "$NDLA_DEPLOY" run ndla $argv
 end
