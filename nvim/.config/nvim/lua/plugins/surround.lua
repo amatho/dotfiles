@@ -1,24 +1,22 @@
-return {
-	"kylechui/nvim-surround",
-	event = "BufEnter",
-	opts = {
-		surrounds = {
-			["("] = {
-				add = { "(", ")" },
-				delete = "^(.)().-(.)()$",
-			},
-			["{"] = {
-				add = { "{", "}" },
-				delete = "^(.)().-(.)()$",
-			},
-			["<"] = {
-				add = { "<", ">" },
-				delete = "^(.)().-(.)()$",
-			},
-			["["] = {
-				add = { "[", "]" },
-				delete = "^(.)().-(.)()$",
-			},
+vim.pack.add({ "https://github.com/kylechui/nvim-surround" })
+
+require("nvim-surround").setup({
+	surrounds = {
+		["("] = {
+			add = { "(", ")" },
+			delete = "^(.)().-(.)()$",
+		},
+		["{"] = {
+			add = { "{", "}" },
+			delete = "^(.)().-(.)()$",
+		},
+		["<"] = {
+			add = { "<", ">" },
+			delete = "^(.)().-(.)()$",
+		},
+		["["] = {
+			add = { "[", "]" },
+			delete = "^(.)().-(.)()$",
 		},
 	},
-}
+})

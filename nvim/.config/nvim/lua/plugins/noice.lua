@@ -1,12 +1,12 @@
 ---@module "noice"
 
-return {
-	"folke/noice.nvim",
-	event = "VeryLazy",
-	dependencies = {
-		"MunifTanjim/nui.nvim",
-	},
-	opts = {
+vim.pack.add({
+	"https://github.com/MunifTanjim/nui.nvim",
+	"https://github.com/folke/noice.nvim",
+})
+
+require("config.later")(function()
+	require("noice").setup({
 		---@type NoiceRouteConfig[]
 		routes = {
 			{
@@ -27,5 +27,5 @@ return {
 			lsp_doc_border = true, -- add a border to hover docs and signature help
 			bottom_search = false,
 		},
-	},
-}
+	})
+end)

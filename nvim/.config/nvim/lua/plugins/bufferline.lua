@@ -1,13 +1,7 @@
-return {
-	"akinsho/bufferline.nvim",
-	event = "VeryLazy",
-	keys = {
-		{ "gn", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
-		{ "gp", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
-		{ "<M-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" } },
-		{ "<A-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" } },
-	},
-	opts = {
+vim.pack.add({ "https://github.com/akinsho/bufferline.nvim" })
+
+require("config.later")(function()
+	require("bufferline").setup({
 		options = {
 			diagnostics = "nvim_lsp",
 			diagnostics_indicator = function(count)
@@ -26,5 +20,10 @@ return {
 				},
 			},
 		},
-	},
-}
+	})
+end)
+
+vim.keymap.set("n", "gn", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+vim.keymap.set("n", "gp", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<M-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer" })
+vim.keymap.set("n", "<A-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })

@@ -8,16 +8,13 @@ vim.api.nvim_create_user_command("DifftToggle", function(e)
 	end
 end, { nargs = "*" })
 
-return {
-	"clabby/difftastic.nvim",
-	dependencies = { "MunifTanjim/nui.nvim" },
-	config = function()
-		require("difftastic-nvim").setup({
-			download = true, -- Auto-download pre-built binary
-		})
-	end,
-	keys = {
-		{ "<Leader>ht", "<cmd>DifftToggle<cr>", desc = "Toggle difftastic" },
-	},
-	lazy = false,
-}
+vim.pack.add({
+	"https://github.com/MunifTanjim/nui.nvim",
+	"https://github.com/clabby/difftastic.nvim",
+})
+
+require("difftastic-nvim").setup({
+	download = true, -- Auto-download pre-built binary
+})
+
+vim.keymap.set("n", "<Leader>ht", "<cmd>DifftToggle<cr>", { desc = "Toggle difftastic" })

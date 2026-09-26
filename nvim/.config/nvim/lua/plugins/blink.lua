@@ -1,9 +1,9 @@
-return {
-	"saghen/blink.cmp",
-	version = "1.*",
-	-- build = "cargo +nightly build --release",
-	event = { "InsertEnter", "CmdlineEnter" },
-	opts = {
+vim.pack.add({
+	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") },
+})
+
+require("config.later")(function()
+	require("blink.cmp").setup({
 		cmdline = {
 			keymap = {
 				["<C-k>"] = { "show", "select_prev", "fallback" },
@@ -42,6 +42,5 @@ return {
 		sources = {
 			default = { "lsp", "path" },
 		},
-	},
-	opts_extend = { "sources.default" },
-}
+	})
+end)
