@@ -10,7 +10,6 @@
       "Bash(gh pr diff *)"
     ]
   },
-  "model": "opus[1m]",
   "skillOverrides": {
     "code-review": "user-invocable-only"
   },
@@ -23,6 +22,11 @@
   },
   "enabledPlugins": {},
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
@@ -31,6 +35,18 @@
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "autoMode": {
+    "allow": [
+      "$defaults",
+      "Bash(jj st:*)",
+      "Bash(jj log:*)",
+      "Bash(jj diff:*)",
+      "Bash(mise install:*)"
+    ],
+    "hard_deny": [
+      "$defaults",
+      "Bash(jj git push:*)",
+      "Bash(tofu destroy:*)"
+    ],
     "environment": [
       "### Org-wide",
       "**Organization**: NDLANO (NDLA — Nasjonal digital læringsarena, ndla.no)",
@@ -56,18 +72,6 @@
       "**Trusted repo**: `~/code/work/ndla` (remote `github.com:NDLANO/ndla`). This repo is PUBLIC, so only this repo's own work belongs in commits or pushes there; content ported, repointed, or first read from outside this session's repo is not its own work, whoever directed the port. Visibility scopes confidential material only: secrets and sensitive data (personal & entrusted) are never cleared into any repo by its visibility — in particular nothing from `backend/.env*` may be committed.",
       "**Org-specific CLIs**: `jj` (Jujutsu — the preferred VCS front end; check for `.jj` before assuming git), `mill` (JVM builds), `mise` (toolchain pinning via `mise.toml`), `yarn` (frontend workspace), `tofu` (OpenTofu IaC), `kubectl`, `gh`, `docker`",
       "**Routine under `~/code/work/` prefix**: work checkouts live under `~/code/work/`"
-    ],
-    "allow": [
-      "$defaults",
-      "Bash(jj st:*)",
-      "Bash(jj log:*)",
-      "Bash(jj diff:*)",
-      "Bash(mise install:*)"
-    ],
-    "hard_deny": [
-      "$defaults",
-      "Bash(jj git push:*)",
-      "Bash(tofu destroy:*)"
     ]
   }
 }
