@@ -1,3 +1,7 @@
+if vim.g.jj_merge then
+	return
+end
+
 vim.pack.add({ "https://github.com/neovim/nvim-lspconfig" })
 
 vim.diagnostic.config({

@@ -1,10 +1,13 @@
 vim.pack.add({ "https://github.com/stevearc/conform.nvim" })
 
+local disable_filetypes = { c = true, cpp = true }
+
 require("config.later")(function()
 	require("conform").setup({
 		format_on_save = function(bufnr)
-			local disable_filetypes = { c = true, cpp = true }
-			if disable_filetypes[vim.bo[bufnr].filetype] then
+			if vim.g.jj_merge then
+				return nil
+			elseif disable_filetypes[vim.bo[bufnr].filetype] then
 				return nil
 			else
 				return { timeout_ms = 1000, lsp_format = "fallback" }

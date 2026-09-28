@@ -8,7 +8,7 @@ vim.schedule(function()
 	vim.opt.clipboard = "unnamedplus"
 end)
 
-opt.fileencoding = "utf-8"
+vim.opt_global.fileencoding = "utf-8"
 opt.autoindent = true
 opt.smartindent = true
 opt.expandtab = true
