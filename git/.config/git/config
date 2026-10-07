@@ -31,3 +31,4 @@
 	commit-decoration-style = bold yellow ul
 	file-style = bold yellow
 	file-decoration-style = bold yellow ul
+	syntax-theme = Catppuccin Mocha
