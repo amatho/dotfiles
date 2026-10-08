@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "permissions": {
     "allow": [
       "WebSearch",
@@ -41,11 +44,7 @@
       "Bash(jj diff:*)",
       "Bash(mise install:*)"
     ],
-    "hard_deny": [
-      "$defaults",
-      "Bash(jj git push:*)",
-      "Bash(tofu destroy:*)"
-    ],
+    "hard_deny": ["$defaults", "Bash(jj git push:*)", "Bash(tofu destroy:*)"],
     "environment": [
       "### Org-wide",
       "**Organization**: NDLANO (NDLA — Nasjonal digital læringsarena, ndla.no)",
