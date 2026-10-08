@@ -16,7 +16,7 @@ set -x EDITOR "nvim"
 set -x K9S_CONFIG_DIR "$HOME/.config/k9s"
 
 if test "$TERM_PROGRAM" = "ghostty"
-    tmux
+    tmux new -A -s main
 end
 
 # Activate Mise for interactive shells
