@@ -12,6 +12,9 @@ key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFaRcZKH9CJsX39JG5MHnw0HFnpm/0ugJdWP9
 [git]
 sign-on-push = true
 
+[remotes.origin]
+auto-track-bookmarks = "amatho/*"
+
 [ui]
 diff-formatter = ":git"
 pager = "delta"
