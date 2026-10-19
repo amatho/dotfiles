@@ -1,5 +1,9 @@
-font-family = SauceCodePro Nerd Font Mono
+font-family = Iosevka Nerd Font
+font-feature = -calt
 font-style = Medium
+font-style-bold = Bold
+font-style-italic = Medium Italic
+font-style-bold-italic = Bold Italic
 font-size = 13
 font-thicken = true
 adjust-cell-height = 5
