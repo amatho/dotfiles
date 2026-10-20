@@ -71,5 +71,6 @@
       "**Org-specific CLIs**: `jj` (Jujutsu — the preferred VCS front end; check for `.jj` before assuming git), `mill` (JVM builds), `mise` (toolchain pinning via `mise.toml`), `yarn` (frontend workspace), `tofu` (OpenTofu IaC), `kubectl`, `gh`, `docker`",
       "**Routine under `~/code/work/` prefix**: work checkouts live under `~/code/work/`"
     ]
-  }
+  },
+  "awaySummaryEnabled": false
 }
