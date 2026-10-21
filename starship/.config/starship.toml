@@ -2,13 +2,7 @@ add_newline = false
 
 format = """
 $directory\
-${custom.jj_bookmarks}\
-${custom.jj_status}\
-${custom.git_branch}\
-${custom.git_commit}\
-$git_state\
-${custom.git_metrics}\
-${custom.git_status} \
+$vcs \
 $character"""
 
 right_format = """
@@ -28,61 +22,6 @@ $time\
 $status\
 $os\
 $shell"""
-
-[custom.jj_bookmarks]
-command = '''
-bookmarks=$(jj log --revisions 'heads(::@ & (bookmarks() | remote_bookmarks()))' --ignore-working-copy --no-graph --template 'bookmarks ++ "\n"')
-bookmark_len=$(echo "$bookmarks" | wc -l | tr -d '[:space:]')
-if [ $bookmark_len -gt 1 ]; then
-  printf "$bookmark_len bookmarks"
-  case "$bookmarks" in
-    *"*"*) printf "*" ;;
-  esac
-else
-  echo "$bookmarks"
-fi
-'''
-shell = ['sh']
-when = "jj --ignore-working-copy root"
-format = '(\[[$output]($style)\])'
-style = "bold purple"
-
-[custom.jj_status]
-command = '''
-jj log --revisions @ --limit 1 --ignore-working-copy --no-graph --template 'if(!empty, "+")'
-'''
-shell = ['sh']
-when = "jj --ignore-working-copy root"
-format = '(\[[$output]($style)\])'
-style = "bold red"
-
-[custom.git_status]
-when = "! jj --ignore-working-copy root"
-command = "starship module git_status"
-shell = ['sh']
-style = "" # This disables the default "(bold green)" style
-description = "Only show git_status if we're not in a jj repo"
-
-[custom.git_commit]
-when = "! jj --ignore-working-copy root"
-command = "starship module git_commit"
-shell = ['sh']
-style = ""
-description = "Only show git_commit if we're not in a jj repo"
-
-[custom.git_metrics]
-when = "! jj --ignore-working-copy root"
-command = "starship module git_metrics"
-shell = ['sh']
-description = "Only show git_metrics if we're not in a jj repo"
-style = ""
-
-[custom.git_branch]
-when = "! jj --ignore-working-copy root"
-command = "starship module git_branch"
-shell = ['sh']
-description = "Only show git_branch if we're not in a jj repo"
-style = ""
 
 # https://starship.rs/presets/bracketed-segments
 
@@ -222,6 +161,20 @@ format = '\[[$symbol($version)]($style)\]'
 
 [jobs]
 format = '\[[$symbol$number]($style)\]'
+
+[jj_bookmark]
+format = '\[[$symbol$bookmark(@$remote)$diverged( \\(+$overflow_count others\\))]($style)\]'
+
+[jj_change]
+format = '\[$change\]'
+
+[jj_metrics]
+disabled = true
+format = '(\[[+$added]($added_style)\]\[[-$deleted]($deleted_style)\])'
+
+[jj_status]
+format = '(\[[$all]($style)\])'
+description_empty = ''
 
 [julia]
 format = '\[[$symbol($version)]($style)\]'
@@ -366,6 +319,9 @@ format = '\[[$user]($style)\]'
 
 [vagrant]
 format = '\[[$symbol($version)]($style)\]'
+
+[vcs]
+order = ["jj", "git"]
 
 [vcsh]
 format = '\[vcsh [$symbol$repo]($style)\]'
