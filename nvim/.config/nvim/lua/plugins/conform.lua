@@ -16,10 +16,20 @@ require("config.later")(function()
 		notify_on_error = true,
 		stop_after_first = true,
 		formatters = {
+			biome = {
+				require_cwd = true,
+			},
 			oxfmt = {
 				require_cwd = true,
 			},
-			biome = {
+			yamlfmt = {
+				cwd = require("conform.util").root_file({
+					".yamlfmt",
+					".yamlfmt.yaml",
+					".yamlfmt.yml",
+					"yamlfmt.yaml",
+					"yamlfmt.yml",
+				}),
 				require_cwd = true,
 			},
 		},
