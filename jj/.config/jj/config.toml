@@ -9,9 +9,6 @@ behavior = "drop"
 backend = "ssh"
 key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFaRcZKH9CJsX39JG5MHnw0HFnpm/0ugJdWP95+F4Cp8"
 
-[git]
-sign-on-push = true
-
 [remotes.origin]
 auto-track-bookmarks = "amatho/*"
 
@@ -48,6 +45,7 @@ merge-tool-edits-conflict-markers = true
 
 [revsets]
 bookmark-advance-to = "@-"
+git-sign-on-push = "~signed() & mine()"
 
 [revset-aliases]
 'my_bookmarks()' = 'bookmarks() & mine()'
