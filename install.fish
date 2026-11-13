@@ -7,7 +7,7 @@ case '*'
     set ignored_packages aerospace skhd
 end
 
-set fold_packages nvim zsh
+set fold_packages herdr nvim zsh
 
 for dir in ./*/
     set package (basename $dir)

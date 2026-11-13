@@ -9,3 +9,7 @@ zsh/.config/zsh/.zsh_sessions/
 zsh/.config/zsh/.zsh_history
 zsh/.config/zsh/.zsh_plugins.zsh
 zsh/.config/zsh/zsh_platform.sh
+
+# Herdr
+herdr/.config/herdr-app/mods/*/gpui-kit.d.ts
+herdr/.config/herdr-app/mods/*/jsconfig.json

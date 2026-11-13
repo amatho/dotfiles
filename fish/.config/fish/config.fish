@@ -15,7 +15,7 @@ set fish_greeting
 set -x EDITOR "nvim"
 set -x K9S_CONFIG_DIR "$HOME/.config/k9s"
 
-if test "$TERM_PROGRAM" = "ghostty"
+if test "$TERM_PROGRAM" = "ghostty"; and not set -q HC_TERMINAL_ID
     tmux new -A -s main
 end
 
