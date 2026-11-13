@@ -171,6 +171,9 @@
     }
   ],
   "background": "canvas",
+  "theme": "tairiki",
+  "font": "GoogleSansCode Nerd Font Mono",
+  "font_size": 13,
   "terminal_padding": [
     14,
     12

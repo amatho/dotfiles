@@ -106,6 +106,12 @@
     "alt-backspace": "send:\u0017",
     "cmd-left": "send:\u0001",
     "cmd-right": "send:\u0005",
-    "cmd-backspace": "send:\u0015"
+    "cmd-backspace": "send:\u0015",
+    "alt-7": "send:|",
+    "alt-8": "send:[",
+    "alt-9": "send:]",
+    "alt-shift-7": "send:\\",
+    "alt-shift-8": "send:{",
+    "alt-shift-9": "send:}"
   }
 }
