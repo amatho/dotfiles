@@ -9,6 +9,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("treesitter"),
+	callback = function(args)
+		if not pcall(vim.treesitter.start, args.buf) then
+			return
+		end
+		local lang = vim.treesitter.language.get_lang(args.match) or args.match
+		if vim.treesitter.query.get(lang, "indents") then
+			vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
 	group = augroup("auto_reload"),
 	command = "if mode() != 'c' | checktime | endif",
