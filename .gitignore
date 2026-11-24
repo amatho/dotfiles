@@ -10,6 +10,10 @@ zsh/.config/zsh/.zsh_history
 zsh/.config/zsh/.zsh_plugins.zsh
 zsh/.config/zsh/zsh_platform.sh
 
+# Claude Code
+claude/.claude/mods/*/.claude-plugin/types/
+claude/.claude/mods/*/tsconfig.json
+
 # Herdr
 herdr/.config/herdr-app/mods/*/gpui-kit.d.ts
 herdr/.config/herdr-app/mods/*/jsconfig.json

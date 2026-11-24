@@ -1,0 +1,1 @@
+{ "name": "herdr-status", "version": "0.1.0", "description": "Publishes the session's model, effort, context and plan limits to Herdr" }

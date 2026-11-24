@@ -1,5 +1,5 @@
 // Claude Code plan limits as pies at the bottom of the sidebar, from the file the
-// Claude status line writes (claude/.claude/hooks/statusline.sh in dots).
+// herdr-status Claude Code mod writes (claude/.claude/mods/herdr-status in dots).
 
 import { View, div, PathBuilder } from "gpui-kit";
 import { h_flex } from "gpui-base";

@@ -108,7 +108,7 @@
                 "pane": {
                   "header": {
                     "content": {
-                      "mod": "pane"
+                      "mod": "jj-pane"
                     },
                     "reveal": "always",
                     "height": 26,

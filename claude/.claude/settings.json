@@ -1,6 +1,7 @@
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_PLUGIN_DIRS": "~/code/etc/dotfiles/claude/.claude/mods/herdr-status"
   },
   "permissions": {
     "allow": [
@@ -19,10 +20,6 @@
   "hooks": {
     "PreToolUse": []
   },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/hooks/statusline.sh"
-  },
   "enabledPlugins": {},
   "effortLevel": "xhigh",
   "modelSettings": {
@@ -30,6 +27,7 @@
       "effortLevel": "xhigh"
     }
   },
+  "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
@@ -44,7 +42,11 @@
       "Bash(jj diff:*)",
       "Bash(mise install:*)"
     ],
-    "hard_deny": ["$defaults", "Bash(jj git push:*)", "Bash(tofu destroy:*)"],
+    "hard_deny": [
+      "$defaults",
+      "Bash(jj git push:*)",
+      "Bash(tofu destroy:*)"
+    ],
     "environment": [
       "### Org-wide",
       "**Organization**: NDLANO (NDLA — Nasjonal digital læringsarena, ndla.no)",
@@ -71,6 +73,5 @@
       "**Org-specific CLIs**: `jj` (Jujutsu — the preferred VCS front end; check for `.jj` before assuming git), `mill` (JVM builds), `mise` (toolchain pinning via `mise.toml`), `yarn` (frontend workspace), `tofu` (OpenTofu IaC), `kubectl`, `gh`, `docker`",
       "**Routine under `~/code/work/` prefix**: work checkouts live under `~/code/work/`"
     ]
-  },
-  "awaySummaryEnabled": false
+  }
 }
