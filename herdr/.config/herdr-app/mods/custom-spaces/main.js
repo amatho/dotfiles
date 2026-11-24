@@ -4,7 +4,7 @@
 // switch, right-click for its menu, drag to reorder.
 // Then its GitHub PRs and issues: linked from its menu, its branch's PR, and
 // those its Claude sessions opened. This copy asks GitHub for all of them and
-// shares what it learns as shared("github") for the agents list and the link dialog.
+// shares what it learns as shared("github") for the link dialog.
 
 import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";

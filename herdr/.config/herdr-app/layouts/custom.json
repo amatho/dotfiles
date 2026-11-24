@@ -29,7 +29,7 @@
               "id": "agents",
               "type": "block",
               "content": {
-                "mod": "custom-agents"
+                "mod": "agents"
               },
               "size": {
                 "weight": 1
@@ -89,7 +89,7 @@
           "id": "tabs",
           "type": "block",
           "content": {
-            "mod": "custom-tabs"
+            "mod": "tabs"
           },
           "size": {
             "px": 32

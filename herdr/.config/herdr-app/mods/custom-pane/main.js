@@ -3,11 +3,12 @@
 // Shows the program's icon (the app's program table), the agent's name or
 // the terminal's title, the folder, Claude's model, effort and context use, and the agent's
 // status; buttons split, zoom and close this pane. Props from the app: { pane, terminal }.
-// Click: focus the pane.
+// Click: focus the pane. Pane keys (keys.json "custom-pane.<command>") act on the focused
+// terminal through custom-panes and custom-copy; only the focused pane's header takes them.
 
 import { View, div, svg, image } from "gpui-kit";
 import { h_flex } from "gpui-base";
-import { panes, terminals, props, run, theme, home, layout } from "herdr";
+import { panes, terminals, props, run, theme, home, layout, focused, nextCommand, openOverlay } from "herdr";
 
 // Match the first visible tab frame, including the active child of a stack.
 function paneFrame(node) {
@@ -51,8 +52,26 @@ function claude(p, t) {
   return bits.flatMap((b, i) => (i ? [div().child("·"), b] : [b]));
 }
 
+function paneCommand(command, terminal, cwd) {
+  const cover = { kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 } };
+  if (command === "pane-space") openOverlay({ mod: "custom-panes", kind: "dialog", width: 420, height: 360, props: { action: "space", terminal } });
+  else if (command === "pane-tab") openOverlay({ mod: "custom-panes", ...cover, props: { action: "tab", terminal } });
+  else if (command.startsWith("layout-")) openOverlay({ mod: "custom-panes", ...cover, props: { action: "layout", layout: command.slice(7), terminal } });
+  else if (command === "copy-mode") openOverlay({ mod: "custom-copy", kind: "dialog", width: 0.92, height: 0.88, props: { action: "copy", terminal } });
+  else if (command === "capture" || command === "capture-colors") openOverlay({ mod: "custom-copy", ...cover, props: { action: "nvim", terminal, cwd, colors: command === "capture-colors" } });
+}
+
 export default class Pane extends View {
-  init() { this.hovered = false; }
+  init(_props, cx) {
+    this.hovered = false;
+    cx.spawn(async () => {
+      for (;;) {
+        const command = await nextCommand();
+        const f = focused();
+        if (f?.pane && f.pane === props()?.pane && f.terminal) paneCommand(command, f.terminal, f.cwd);
+      }
+    });
+  }
 
   me() {
     return panes().find((p) => p.pane === props()?.pane);

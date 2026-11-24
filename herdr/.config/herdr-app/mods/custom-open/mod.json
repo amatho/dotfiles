@@ -1,1 +1,9 @@
-{ "place": "none", "title": "Open location", "overlay": { "kind": "popup", "at": "top", "offset": 40, "width": 640, "height": 0.7 } }
+{
+  "place": "none",
+  "title": "Open location",
+  "overlay": { "kind": "popup", "at": "top", "offset": 40, "width": 640, "height": 0.7 },
+  "palette": [
+    { "title": "New Claude Code session", "command": "tab.new", "args": { "name": "Claude", "argv": ["claude"] }, "words": "agent tab" },
+    { "title": "New Claude Code session in a worktree", "command": "tab.new", "args": { "name": "Claude", "argv": ["claude", "--worktree"] }, "words": "agent tab jj workspace" }
+  ]
+}

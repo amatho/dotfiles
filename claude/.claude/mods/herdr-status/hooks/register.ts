@@ -3,7 +3,7 @@ import type { EngineInterface, Register } from 'claude-code'
 // Publishes the session's state for Herdr's mods: plan limits to
 // ~/.cache/herdr-claude/limits.json (custom-limits), and the session, its folder,
 // model, effort and context use as claude.* labels on the Herdr terminal
-// (custom-agents, custom-spaces, custom-pane).
+// (custom-spaces, custom-pane).
 
 // "claude-opus-5-5[1m]" -> "Opus 5.5"; anything else as it is.
 function modelName(model: string): string {
