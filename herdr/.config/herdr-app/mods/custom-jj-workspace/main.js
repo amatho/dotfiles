@@ -306,7 +306,7 @@ export default class JjWorkspace extends View {
               : `${s?.id ? "Closes the space and deletes" : "Deletes"} ${tilde(r.top, this.userHome)}. Its working copy is snapshotted first, so its changes stay in jj log.`
             : `A new space on a workspace in ${tilde(r.main, this.userHome)}/.claude/worktrees/, made by Claude Code's WorktreeCreate hook like \`claude --worktree\`. A name already in use opens that workspace.`;
     const blocked = !r || (remove && !r.linked);
-    const archived = remove && r?.linked ? (shared("jj-sessions.archived") ?? []).filter((a) => a.cwd === r.top || a.cwd.startsWith(`${r.top}/`)).length : 0;
+    const archived = remove && r?.linked ? (shared("custom-sessions.archived") ?? []).filter((a) => a.cwd === r.top || a.cwd.startsWith(`${r.top}/`)).length : 0;
     return v_flex()
       .id("workspace")
       .track_focus(this.handle)

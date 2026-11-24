@@ -17,17 +17,17 @@ export default class Tabs extends View {
     this.hovered = null;
     this.scroll = ScrollHandle.new();
     this.panels = JSON.parse(localStorage.getItem("panels") ?? "{}");
-    // Pane keys (keys.json "jj-tabs.<command>") act on the focused terminal through jj-panes and jj-copy.
+    // Pane keys (keys.json "custom-tabs.<command>") act on the focused terminal through custom-panes and custom-copy.
     cx.spawn(async () => {
       for (;;) {
         const command = await nextCommand();
         const terminal = focused()?.terminal;
         if (!terminal) continue;
-        if (command === "pane-space") openOverlay({ mod: "jj-panes", kind: "dialog", width: 420, height: 360, props: { action: "space", terminal } });
-        else if (command === "pane-tab") openOverlay({ mod: "jj-panes", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: { action: "tab", terminal } });
-        else if (command.startsWith("layout-")) openOverlay({ mod: "jj-panes", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: { action: "layout", layout: command.slice(7), terminal } });
-        else if (command === "copy-mode") openOverlay({ mod: "jj-copy", kind: "dialog", width: 0.92, height: 0.88, props: { action: "copy", terminal } });
-        else if (command === "capture" || command === "capture-colors") openOverlay({ mod: "jj-copy", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: { action: "nvim", terminal, cwd: focused()?.cwd, colors: command === "capture-colors" } });
+        if (command === "pane-space") openOverlay({ mod: "custom-panes", kind: "dialog", width: 420, height: 360, props: { action: "space", terminal } });
+        else if (command === "pane-tab") openOverlay({ mod: "custom-panes", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: { action: "tab", terminal } });
+        else if (command.startsWith("layout-")) openOverlay({ mod: "custom-panes", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: { action: "layout", layout: command.slice(7), terminal } });
+        else if (command === "copy-mode") openOverlay({ mod: "custom-copy", kind: "dialog", width: 0.92, height: 0.88, props: { action: "copy", terminal } });
+        else if (command === "capture" || command === "capture-colors") openOverlay({ mod: "custom-copy", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: { action: "nvim", terminal, cwd: focused()?.cwd, colors: command === "capture-colors" } });
       }
     });
   }
@@ -120,11 +120,11 @@ export default class Tabs extends View {
       .child(h_flex().id("tab-scroll").flex_1().min_w(0).h_full().items_center().gap(3).overflow_x_scrollbar().track_scroll(this.scroll)
         .on_size_change((_size, cx) => { if (active >= 0) { this.scroll.scroll_to_item(active); cx.notify(); } })
         .children(shown.map(item)))
-      .child(button("tab-new", "+", () => openOverlay({ mod: "jj-new-menu", kind: "popup", width: 250, height: 512 })))
+      .child(button("tab-new", "+", () => openOverlay({ mod: "custom-new-menu", kind: "popup", width: 250, height: 512 })))
       .when(enabled.includes("files"), el => el.child(panelButton("files", "Files", "mods/files/file.svg")))
       .when(enabled.includes("changes"), el => el.child(panelButton("changes", "Changes", "mods/changes/changes.svg")))
-      .when(w?.buttons, el => el.child(button("minimize", w.platform === "windows" ? svg("mods/jj-tabs/win-min.svg").size(16) : "−", () => run("window.minimize")))
-        .child(button("maximize", w.platform === "windows" ? svg(`mods/jj-tabs/${w.maximized ? "win-restore" : "win-max"}.svg`).size(16) : "□", () => run("window.maximize")))
-        .child(button("close-window", w.platform === "windows" ? svg("mods/jj-tabs/win-close.svg").size(16) : svg("mods/pane/close.svg").size(13), () => run("window.close"))));
+      .when(w?.buttons, el => el.child(button("minimize", w.platform === "windows" ? svg("mods/custom-tabs/win-min.svg").size(16) : "−", () => run("window.minimize")))
+        .child(button("maximize", w.platform === "windows" ? svg(`mods/custom-tabs/${w.maximized ? "win-restore" : "win-max"}.svg`).size(16) : "□", () => run("window.maximize")))
+        .child(button("close-window", w.platform === "windows" ? svg("mods/custom-tabs/win-close.svg").size(16) : svg("mods/pane/close.svg").size(13), () => run("window.close"))));
   }
 }

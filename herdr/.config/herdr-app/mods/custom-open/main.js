@@ -1,6 +1,6 @@
 // Open a recent location (zoxide's ranked folders and open panes', per machine) as a new
 // space (↵), a tab in the shown space (⌘↵) or a pane beside the focused one (⇧↵); or
-// start Claude Code there in a new space (jj-open.claude, jj-open.claude-worktree).
+// start Claude Code there in a new space (custom-open.claude, custom-open.claude-worktree).
 
 import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex, InputState, Input, ScrollHandle } from "gpui-base";

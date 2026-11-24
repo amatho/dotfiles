@@ -1,7 +1,7 @@
 // Context menus (Herdr's items). Opened as a popup with
 // props { tab: "pane" | "tab" | "space" | "global", target }.
 // ↑/↓ move, Enter runs, Esc closes. An item is [label, command, args];
-// a command "worktree", "jj-workspace", "jj-sessions", "jj-panes", "jj-copy" or "jj-spaces" (its link dialog) opens that mod instead.
+// a command "worktree", "custom-jj-workspace", "custom-sessions", "custom-panes", "custom-copy" or "custom-spaces" (its link dialog) opens that mod instead.
 
 import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
@@ -61,14 +61,14 @@ function items(p, git) {
         ...(parent ? [[`Send back to ${parent.name || parent.address}`, "terminal.park", { terminal: term.address }]] : []),
         ...(inTab && term
           ? [
-              ["Move to new tab", "jj-panes", { action: "tab", terminal: term.address }],
-              ["Move to space\u2026", "jj-panes", { action: "space", terminal: term.address }],
-              ["Copy mode", "jj-copy", { action: "copy", terminal: term.address }],
-              ["Open in Neovim", "jj-copy", { action: "nvim", terminal: term.address, cwd: panes().find((pane) => pane.pane === tg.pane)?.cwd }],
-              ["Open in Neovim with colours", "jj-copy", { action: "nvim", colors: true, terminal: term.address, cwd: panes().find((pane) => pane.pane === tg.pane)?.cwd }],
+              ["Move to new tab", "custom-panes", { action: "tab", terminal: term.address }],
+              ["Move to space\u2026", "custom-panes", { action: "space", terminal: term.address }],
+              ["Copy mode", "custom-copy", { action: "copy", terminal: term.address }],
+              ["Open in Neovim", "custom-copy", { action: "nvim", terminal: term.address, cwd: panes().find((pane) => pane.pane === tg.pane)?.cwd }],
+              ["Open in Neovim with colours", "custom-copy", { action: "nvim", colors: true, terminal: term.address, cwd: panes().find((pane) => pane.pane === tg.pane)?.cwd }],
             ]
           : []),
-        ...(inTab && agents().some((a) => a.address === tg.terminal && claude(a)) ? [["Archive session", "jj-sessions", { action: "archive", terminals: [tg.terminal] }]] : []),
+        ...(inTab && agents().some((a) => a.address === tg.terminal && claude(a)) ? [["Archive session", "custom-sessions", { action: "archive", terminals: [tg.terminal] }]] : []),
         ...(inTab ? [["Close pane", "pane.close", { pane: tg.pane }]] : []),
       ];
     }
@@ -83,16 +83,16 @@ function items(p, git) {
         ["Rename", "space.rename", { id: tg.id }],
         ...(git?.startsWith("jj")
           ? [
-              ["New jj workspace", "jj-workspace", { space: tg.id, action: "new" }],
-              ["Open jj workspace", "jj-workspace", { space: tg.id, action: "open" }],
-              ...(git === "jj-linked" ? [["Remove jj workspace", "jj-workspace", { space: tg.id, action: "remove" }]] : []),
+              ["New jj workspace", "custom-jj-workspace", { space: tg.id, action: "new" }],
+              ["Open jj workspace", "custom-jj-workspace", { space: tg.id, action: "open" }],
+              ...(git === "jj-linked" ? [["Remove jj workspace", "custom-jj-workspace", { space: tg.id, action: "remove" }]] : []),
             ]
           : [
               ...(git ? [["New worktree", "worktree", { space: tg.id, action: "new" }], ["Open worktree", "worktree", { space: tg.id, action: "open" }]] : []),
               ...(git === "linked" ? [["Remove worktree", "worktree", { space: tg.id, action: "remove" }]] : []),
             ]),
-        ["Link PR or issue\u2026", "jj-spaces", { link: tg.id }],
-        ...(agents().some((a) => a.space === tg.id && claude(a)) ? [["Archive sessions & close", "jj-sessions", { action: "archive", space: tg.id }]] : []),
+        ["Link PR or issue\u2026", "custom-spaces", { link: tg.id }],
+        ...(agents().some((a) => a.space === tg.id && claude(a)) ? [["Archive sessions & close", "custom-sessions", { action: "archive", space: tg.id }]] : []),
         ["Close", "space.close", { id: tg.id }],
       ];
     default:
@@ -108,8 +108,8 @@ function items(p, git) {
 }
 
 function menuIcon(command) {
-  if (command === "jj-spaces") return "mods/jj-spaces/git-pull-request.svg";
-  const name = command.endsWith(".close") ? "x" : command.endsWith(".rename") ? "square-pen" : command.endsWith(".new") ? "plus" : command === "worktree" || command === "jj-workspace" ? "git-branch" : command === "jj-sessions" ? "archive" : command === "jj-panes" ? "layers" : command === "jj-copy" ? "file-text" : command === "app.help" ? "terminal" : command === "app.theme" ? "settings" : command === "pane.split" ? "panel-right" : command === "pane.zoom" ? "square" : "terminal";
+  if (command === "custom-spaces") return "mods/custom-spaces/git-pull-request.svg";
+  const name = command.endsWith(".close") ? "x" : command.endsWith(".rename") ? "square-pen" : command.endsWith(".new") ? "plus" : command === "worktree" || command === "custom-jj-workspace" ? "git-branch" : command === "custom-sessions" ? "archive" : command === "custom-panes" ? "layers" : command === "custom-copy" ? "file-text" : command === "app.help" ? "terminal" : command === "app.theme" ? "settings" : command === "pane.split" ? "panel-right" : command === "pane.zoom" ? "square" : "terminal";
   return `mods/workspace-chrome/${name}.svg`;
 }
 
@@ -141,13 +141,13 @@ export default class Menu extends View {
     const it = items(props(), this.git)[i];
     if (!it) return;
     closeOverlay(props()?.overlay);
-    if (it[1] === "worktree" || it[1] === "jj-workspace") openOverlay({ mod: it[1], kind: "dialog", ...(it[2].action === "open" ? { width: 560, height: 480 } : { width: 440, height: 260 }), props: it[2] });
-    else if (it[1] === "jj-spaces") openOverlay({ mod: "jj-spaces", kind: "dialog", width: 560, height: 0.7, props: it[2] });
-    else if (it[1] === "jj-sessions") openOverlay({ mod: "jj-sessions", kind: "dialog", width: 440, height: 220, props: it[2] });
-    else if (it[1] === "jj-copy" && it[2].action === "copy") openOverlay({ mod: "jj-copy", kind: "dialog", width: 0.92, height: 0.88, props: it[2] });
-    else if (it[1] === "jj-copy") openOverlay({ mod: "jj-copy", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: it[2] });
-    else if (it[1] === "jj-panes" && it[2].action === "space") openOverlay({ mod: "jj-panes", kind: "dialog", width: 420, height: 360, props: it[2] });
-    else if (it[1] === "jj-panes") openOverlay({ mod: "jj-panes", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: it[2] });
+    if (it[1] === "worktree" || it[1] === "custom-jj-workspace") openOverlay({ mod: it[1], kind: "dialog", ...(it[2].action === "open" ? { width: 560, height: 480 } : { width: 440, height: 260 }), props: it[2] });
+    else if (it[1] === "custom-spaces") openOverlay({ mod: "custom-spaces", kind: "dialog", width: 560, height: 0.7, props: it[2] });
+    else if (it[1] === "custom-sessions") openOverlay({ mod: "custom-sessions", kind: "dialog", width: 440, height: 220, props: it[2] });
+    else if (it[1] === "custom-copy" && it[2].action === "copy") openOverlay({ mod: "custom-copy", kind: "dialog", width: 0.92, height: 0.88, props: it[2] });
+    else if (it[1] === "custom-copy") openOverlay({ mod: "custom-copy", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: it[2] });
+    else if (it[1] === "custom-panes" && it[2].action === "space") openOverlay({ mod: "custom-panes", kind: "dialog", width: 420, height: 360, props: it[2] });
+    else if (it[1] === "custom-panes") openOverlay({ mod: "custom-panes", kind: "window", frame: "none", width: 1, height: 1, at: { x: 0, y: 0 }, props: it[2] });
     else run(it[1], it[2]);
   }
 

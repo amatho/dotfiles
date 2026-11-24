@@ -6,11 +6,11 @@ import { View, div, svg } from "gpui-kit";
 import { v_flex, h_flex, InputState, Input, ScrollHandle } from "gpui-base";
 import { agents, spaces, panes, layout, focused, theme, shared, setShared, props, run, exec, hc, home, appHome, readTextFile, openOverlay, closeOverlay, nextCommand } from "herdr";
 
-const ARCHIVE = "jj-sessions.archived";
+const ARCHIVE = "custom-sessions.archived";
 const FOLDED = 41;
 const LIST = 440;
 const ICON = (name) => `mods/workspace-chrome/${name}.svg`;
-// Space avatar colors, as the jj-spaces sidebar draws them.
+// Space avatar colors, as the custom-spaces sidebar draws them.
 const MARK = { ansi6: "#22a99a", ansi3: "#e3814f", ansi4: "#5b8def", ansi5: "#8b7cf6", ansi2: "#3fae6a", ansi1: "#d9649a" };
 
 const archived = () => shared(ARCHIVE) ?? [];
@@ -77,7 +77,7 @@ async function live() {
 }
 
 async function history() {
-  const r = await exec("python3", ["-I", `${appHome()}/mods/jj-sessions/scan.py`], { timeout: 60000 });
+  const r = await exec("python3", ["-I", `${appHome()}/mods/custom-sessions/scan.py`], { timeout: 60000 });
   return r.code === 0 ? JSON.parse(r.stdout) : [];
 }
 
@@ -123,7 +123,7 @@ function archive(targets, space) {
 // Open search overlays: cmd-shift-a archives their selection rather than the focused pane's session.
 let searching = 0;
 
-const confirmArchive = (args) => openOverlay({ mod: "jj-sessions", kind: "dialog", width: 440, height: 220, props: { action: "archive", ...args } });
+const confirmArchive = (args) => openOverlay({ mod: "custom-sessions", kind: "dialog", width: 440, height: 220, props: { action: "archive", ...args } });
 
 export default class Sessions extends View {
   init(_props, cx) {
@@ -278,7 +278,7 @@ export default class Sessions extends View {
     const list = archived();
     const rail = narrow();
     const folded = (find(layout(), "archived")?.size?.px ?? Infinity) <= FOLDED;
-    const search = () => run("mod.open", { name: "jj-sessions" });
+    const search = () => run("mod.open", { name: "custom-sessions" });
     const fold = () => run("layout.resize", folded ? { id: "archived", weight: 0.5 } : { id: "archived", px: FOLDED });
     const button = (id, icon, action) =>
       div().id(id).size(22).flex_none().flex().items_center().justify_center().rounded(5).text_color(t.dim).hover((s) => s.text_color(t.foreground)).on_click(action).child(svg(ICON(icon)).size(14));

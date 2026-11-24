@@ -3,7 +3,7 @@
 // Typing filters both (a number picks that one; a URL or owner/repo#12 is looked
 // up). ^D (or the row's button) unlinks one linked by hand, and hides the others
 // from the space and its agents (shared("github.hidden")) until ^D shows them
-// again. A jj-spaces overlay with props { link: spaceId }.
+// again. A custom-spaces overlay with props { link: spaceId }.
 
 import { div, svg } from "gpui-kit";
 import { v_flex, h_flex, InputState, Input, ScrollHandle } from "gpui-base";

@@ -136,15 +136,15 @@ function icon(p, size, color) {
   return p.tint ? svg(p.icon).size(size).flex_none().text_color(color) : image(p.icon).w(size).h(size).flex_none();
 }
 
-// The PRs an agent's Claude session opened, as jj-spaces finds them (shared("github")),
-// drawn as jj-spaces/github.js draws them: GitHub's colors, [light, dark].
+// The PRs an agent's Claude session opened, as custom-spaces finds them (shared("github")),
+// drawn as custom-spaces/github.js draws them: GitHub's colors, [light, dark].
 const GREEN = ["#1a7f37", "#3fb950"], PURPLE = ["#8250df", "#a371f7"], GRAY = ["#59636e", "#9198a1"];
 const GH = {
-  open: { icon: "mods/jj-spaces/git-pull-request.svg", color: GREEN, label: "Open" },
-  draft: { icon: "mods/jj-spaces/git-pull-request-draft.svg", color: GRAY, label: "Draft" },
-  queued: { icon: "mods/jj-spaces/git-pull-request.svg", color: ["#9a6700", "#d29922"], label: "Merge queued" },
-  merged: { icon: "mods/jj-spaces/git-merge.svg", color: PURPLE, label: "Merged" },
-  closed: { icon: "mods/jj-spaces/git-pull-request-closed.svg", color: ["#cf222e", "#f85149"], label: "Closed" },
+  open: { icon: "mods/custom-spaces/git-pull-request.svg", color: GREEN, label: "Open" },
+  draft: { icon: "mods/custom-spaces/git-pull-request-draft.svg", color: GRAY, label: "Draft" },
+  queued: { icon: "mods/custom-spaces/git-pull-request.svg", color: ["#9a6700", "#d29922"], label: "Merge queued" },
+  merged: { icon: "mods/custom-spaces/git-merge.svg", color: PURPLE, label: "Merged" },
+  closed: { icon: "mods/custom-spaces/git-pull-request-closed.svg", color: ["#cf222e", "#f85149"], label: "Closed" },
 };
 
 function prBadges(urls, items, t, id, max) {
@@ -643,7 +643,7 @@ export default class Agents extends View {
                 .text_size(11)
                 .text_color(t.dim)
                 .hover((s) => s.text_color(t.foreground))
-                .on_click(() => openOverlay({ mod: "jj-agents", kind: "popup", width: 200, height: 140, props: { sortMenu: true } }))
+                .on_click(() => openOverlay({ mod: "custom-agents", kind: "popup", width: 200, height: 140, props: { sortMenu: true } }))
                 .tooltip(`Sort agents: ${sort.label}`)
                 .child(svg(`mods/workspace-chrome/${sort.icon}.svg`).size(14)),
             ),

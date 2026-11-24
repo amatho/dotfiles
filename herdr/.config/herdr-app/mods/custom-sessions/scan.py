@@ -7,7 +7,7 @@ import re
 import sys
 
 ROOT = os.path.expanduser("~/.claude/projects")
-CACHE = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "herdr-jj-sessions.json")
+CACHE = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "herdr-custom-sessions.json")
 HEAD = 131072
 TAIL = 65536
 COMMAND = re.compile(r"<command-name>(.*?)</command-name>", re.S)

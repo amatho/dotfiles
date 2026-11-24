@@ -13,14 +13,14 @@ const NODE = `__typename ... on PullRequest { ${PR} } ... on Issue { ${ISSUE} }`
 // GitHub's own colors, [light, dark]; merge-queued is the attention yellow.
 const GREEN = ["#1a7f37", "#3fb950"], PURPLE = ["#8250df", "#a371f7"], GRAY = ["#59636e", "#9198a1"];
 export const GH = {
-  open: { icon: "mods/jj-spaces/git-pull-request.svg", color: GREEN, label: "Open" },
-  draft: { icon: "mods/jj-spaces/git-pull-request-draft.svg", color: GRAY, label: "Draft" },
-  queued: { icon: "mods/jj-spaces/git-pull-request.svg", color: ["#9a6700", "#d29922"], label: "Merge queued" },
-  merged: { icon: "mods/jj-spaces/git-merge.svg", color: PURPLE, label: "Merged" },
-  closed: { icon: "mods/jj-spaces/git-pull-request-closed.svg", color: ["#cf222e", "#f85149"], label: "Closed" },
-  "issue-open": { icon: "mods/jj-spaces/circle-dot.svg", color: GREEN, label: "Open" },
+  open: { icon: "mods/custom-spaces/git-pull-request.svg", color: GREEN, label: "Open" },
+  draft: { icon: "mods/custom-spaces/git-pull-request-draft.svg", color: GRAY, label: "Draft" },
+  queued: { icon: "mods/custom-spaces/git-pull-request.svg", color: ["#9a6700", "#d29922"], label: "Merge queued" },
+  merged: { icon: "mods/custom-spaces/git-merge.svg", color: PURPLE, label: "Merged" },
+  closed: { icon: "mods/custom-spaces/git-pull-request-closed.svg", color: ["#cf222e", "#f85149"], label: "Closed" },
+  "issue-open": { icon: "mods/custom-spaces/circle-dot.svg", color: GREEN, label: "Open" },
   "issue-done": { icon: "mods/workspace-chrome/circle-check.svg", color: PURPLE, label: "Closed" },
-  "issue-skip": { icon: "mods/jj-spaces/circle-slash.svg", color: GRAY, label: "Not planned" },
+  "issue-skip": { icon: "mods/custom-spaces/circle-slash.svg", color: GRAY, label: "Not planned" },
 };
 export const FINAL = new Set(["merged", "closed", "issue-done", "issue-skip"]);
 

@@ -12,8 +12,8 @@ home folder, `~/.config/herdr-app`:
 ## Where the files live
 
 `~/.config/herdr-app` is Herdr's own folder. Only the files in the dotfiles
-package `~/code/etc/dotfiles/herdr/.config/herdr-app` are this setup's: the `jj`
-layout, `keys.json`, this file and the `mods/jj-*` mods. They're linked into
+package `~/code/etc/dotfiles/herdr/.config/herdr-app` are this setup's: the `custom`
+layout, `keys.json`, this file and the `mods/custom-*` mods. They're linked into
 Herdr's folder with `stow herdr --target ~` from `~/code/etc/dotfiles`, so edit
 them in dotfiles and run stow after adding a mod or top-level file. Each mod
 folder must be one link to its folder in dotfiles, not a real folder of per-file

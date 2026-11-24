@@ -32,7 +32,7 @@ const WAYS = {
 // the tab. The peek closes when Neovim quits, and the temp file goes with it.
 async function capture(cx, terminal, cwd, colors) {
   const way = WAYS[colors ? "colors" : "plain"];
-  const helper = `${appHome()}/mods/jj-copy/capture.py`;
+  const helper = `${appHome()}/mods/custom-copy/capture.py`;
   const file = await exec("sh", ["-c", `f=$(mktemp "\${TMPDIR:-/tmp}/herdr-capture.XXXXXX") && ${way.write} && printf %s "$f"`, "sh", terminal, helper, HISTORY], { timeout: 60000 });
   const path = (file.stdout ?? "").trim();
   if (file.code !== 0 || !path) throw new Error((file.stderr || "couldn't read the pane").trim());

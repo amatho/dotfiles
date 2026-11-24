@@ -18,7 +18,7 @@
               "id": "spaces",
               "type": "block",
               "content": {
-                "mod": "jj-spaces"
+                "mod": "custom-spaces"
               },
               "size": {
                 "weight": 1
@@ -29,7 +29,7 @@
               "id": "agents",
               "type": "block",
               "content": {
-                "mod": "jj-agents"
+                "mod": "custom-agents"
               },
               "size": {
                 "weight": 1
@@ -40,7 +40,7 @@
               "id": "archived",
               "type": "block",
               "content": {
-                "mod": "jj-sessions"
+                "mod": "custom-sessions"
               },
               "size": {
                 "weight": 0.5
@@ -66,7 +66,7 @@
           "id": "limits",
           "type": "block",
           "content": {
-            "mod": "jj-limits"
+            "mod": "custom-limits"
           },
           "size": {
             "px": 26
@@ -89,7 +89,7 @@
           "id": "tabs",
           "type": "block",
           "content": {
-            "mod": "jj-tabs"
+            "mod": "custom-tabs"
           },
           "size": {
             "px": 32
@@ -108,7 +108,7 @@
                 "pane": {
                   "header": {
                     "content": {
-                      "mod": "jj-pane"
+                      "mod": "custom-pane"
                     },
                     "reveal": "always",
                     "height": 26,
@@ -187,5 +187,5 @@
     -100,
     -100
   ],
-  "terminal_menu": "jj-menu"
+  "terminal_menu": "custom-menu"
 }

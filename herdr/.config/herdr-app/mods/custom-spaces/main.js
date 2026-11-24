@@ -36,7 +36,7 @@ const railCell = (el) => h_flex().flex_none().justify_center().child(el);
 const where = (s, ps) => JSON.stringify([s.machine ?? null, place(s, ps)]);
 const base = (path) => path.replace(/\/+$/, "").split("/").pop();
 const inside = (p, dir) => p === dir || p.startsWith(dir + "/");
-const ARCHIVE = "jj-sessions.archived";
+const ARCHIVE = "custom-sessions.archived";
 
 // The nearest bookmarks under @, as the starship prompt shows them: "main",
 // "main*~2", "2 bookmarks", "?". null outside jj.
@@ -78,7 +78,7 @@ export function tone(t, status) {
 
 // The link dialog for a space.
 function openLinks(id) {
-  if (id) openOverlay({ mod: "jj-spaces", kind: "dialog", width: 560, height: 0.7, props: { link: id } });
+  if (id) openOverlay({ mod: "custom-spaces", kind: "dialog", width: 560, height: 0.7, props: { link: id } });
 }
 
 export default class Spaces extends View {
@@ -400,7 +400,7 @@ export default class Spaces extends View {
 
   menu(w) {
     // A popup is as tall as its items; height is only the most.
-    openOverlay({ mod: "jj-menu", kind: "popup", width: 200, height: 260, props: { tab: "space", target: { id: w.id } } });
+    openOverlay({ mod: "custom-menu", kind: "popup", width: 200, height: 260, props: { tab: "space", target: { id: w.id } } });
   }
 
   orderingDue(now) {
