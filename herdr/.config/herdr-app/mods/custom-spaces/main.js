@@ -2,14 +2,13 @@
 // grouped by machine when more than one is known. After a space's name, the repo
 // its first terminal is in now, only where unusual: branch, ahead/behind. Agent state lives in the agents list, not here. Click to
 // switch, right-click for its menu, drag to reorder.
-// Then its GitHub PRs and issues: linked from its menu, its branch's PR, and
-// those its Claude sessions opened. This copy asks GitHub for all of them and
-// shares what it learns as shared("github") for the link dialog.
+// This copy adds extras.js (jj bookmarks, GitHub PRs and issues, archived Claude
+// sessions) and the link dialog (links.js), opened with props { link: spaceId }.
 
 import { View, div, svg } from "gpui-kit";
-import { v_flex, h_flex } from "gpui-base";
-import { spaces, machines, panes, terminals, agents, focused, props, nextCommand, run, openOverlay, exec, hc, theme, shared, setShared, watchFolder, window, layout } from "herdr";
-import { FINAL, badges, branchName, fetchGitHub, githubRepo, scanAgent } from "./github.js";
+import { v_flex, h_flex, ScrollHandle } from "gpui-base";
+import { spaces, machines, panes, props, run, openOverlay, exec, hc, theme, shared, setShared, watchFolder, window, layout } from "herdr";
+import { extraInit, extraDue, extraGit, extraPublish, extraBadges } from "./extras.js";
 import { linkInit, linkRender } from "./links.js";
 
 function find(node, id) {
@@ -32,40 +31,46 @@ function place(s, ps) {
 }
 const rowHeight = ({ tree }) => (tree ? 28 : 30);
 const RAIL_CELL = 32;
+// A space's name and its git tail never shrink below this, so a short one ("api")
+// stays readable instead of turning into an ellipsis next to a long branch.
+const SIDE_MIN = 48;
 const railCell = (el) => h_flex().flex_none().justify_center().child(el);
 const where = (s, ps) => JSON.stringify([s.machine ?? null, place(s, ps)]);
 const base = (path) => path.replace(/\/+$/, "").split("/").pop();
-const inside = (p, dir) => p === dir || p.startsWith(dir + "/");
-const ARCHIVE = "custom-sessions.archived";
-
-// The nearest bookmarks under @, as the starship prompt shows them: "main",
-// "main*~2", "2 bookmarks", "?". null outside jj.
-async function bookmarkOf(cwd, on) {
-  const nearest = "heads(::@ & (bookmarks() | remote_bookmarks()))";
-  const log = (revs, template) => exec("jj", ["--ignore-working-copy", "--color=never", "log", "--no-graph", "-r", revs, "-T", template], { cwd, on });
-  const heads = await log(nearest, 'bookmarks ++ "\\n"');
-  if (heads.code !== 0) return null;
-  const lines = heads.stdout.split("\n").filter(Boolean);
-  if (!lines.length) return "?";
-  const label = lines.length > 1 ? `${lines.length} bookmarks${lines.some((l) => l.includes("*")) ? "*" : ""}` : lines[0];
-  const ahead = await log(`${nearest}..@ ~ @`, '"x"');
-  return ahead.code === 0 && ahead.stdout.length ? `${label}~${ahead.stdout.length}` : label;
-}
-
+// A repo's name from its git folder: the folder holding .git, a bare repo's own
+// name, or the folder holding a hidden bare repo (<project>/.bare).
+const repoName = (common) => {
+  if (common.endsWith("/.git")) return base(common.slice(0, -5));
+  const own = base(common);
+  return own === ".bare" ? base(common.slice(0, -own.length - 1)) : own.replace(/\.git$/, "");
+};
 // Changes made outside Herdr (an editor's save, a commit in another app): looked
 // for this often, in repos the list shows, while the window is in front.
 const FALLBACK = 60000;
+// Places looked at together (two git runs each). All at once, a few hundred spaces
+// run out of the app's open files (256 when started from the Dock on macOS) or
+// past a machine core's 16 running execs, and those spaces wait for FALLBACK.
+const AT_ONCE = 6;
 
-// GitHub is asked again this often while the window is in front: open PRs and
-// issues and branches' PRs, then merged and closed ones; after a failure, not before.
-const GH_OPEN = 2 * 60000;
-const GH_FINAL = 30 * 60000;
-const GH_RETRY = 10 * 60000;
-const machineOf = (id) => (id.includes("/") ? id.split("/")[0] : null);
+// Both runs, finished: a place isn't done while one of its runs still holds a slot.
+async function both(a, b) {
+  const done = await Promise.allSettled([a, b]);
+  const failed = done.find((d) => d.status === "rejected");
+  if (failed) throw failed.reason;
+  return done.map((d) => d.value);
+}
 
 // What a stored color name looks like on an avatar (the same in every mod
 // that draws space avatars): one strong color per hue, light and dark alike.
 const MARK = { ansi6: "#22a99a", ansi3: "#e3814f", ansi4: "#5b8def", ansi5: "#8b7cf6", ansi2: "#3fae6a", ansi1: "#d9649a" };
+
+// Keep the whole leading emoji in the avatar (same rule in spaces and picker).
+// Newer pictographs such as 🖥 may be drawn as emoji without VS16. A trailing
+// selector, modifier or joiner can signal that we matched only part of a glyph.
+const EMOJI = /^(?:[#*0-9]\uFE0F?\u20E3|\p{Regional_Indicator}{2}|(?:\p{Emoji_Presentation}|(?=[\u{1F000}-\u{1FFFF}])\p{Extended_Pictographic}|\p{Extended_Pictographic}(?=\uFE0F)|\p{Emoji_Modifier_Base}(?=\p{Emoji_Modifier}))\uFE0F?[\p{Emoji_Modifier}\u{E0020}-\u{E007F}]*(?:\u200D\p{Extended_Pictographic}\uFE0F?\p{Emoji_Modifier}?)*)(?![\p{Grapheme_Extend}\p{Emoji_Modifier}\u200D])/u;
+function spaceAvatar(name) {
+  return EMOJI.exec(name)?.[0] ?? ([...name][0]?.toUpperCase() ?? "?");
+}
 
 // A space speaks up only when something in it needs you.
 export function glyph(status) {
@@ -76,48 +81,37 @@ export function tone(t, status) {
   return t[status] ?? t.unknown;
 }
 
-// The link dialog for a space.
-function openLinks(id) {
-  if (id) openOverlay({ mod: "custom-spaces", kind: "dialog", width: 560, height: 0.7, props: { link: id } });
-}
-
 export default class Spaces extends View {
   init(_props, cx) {
     if (props()?.link) return linkInit(this, cx);
-    this.git = {}; // where() -> { name, branch, ahead, behind, repo, linked, gh: "owner/repo" }, null: not a repo
+    this.git = {}; // where() -> { name, branch, ahead, behind, repo, linked }, null: not a repo
     this.checked = {}; // where() -> when it was last looked at
     this.unsure = new Set(); // where()s git couldn't answer for (a machine away)
     this.pending = new Set(); // where()s to look at next
     this.busy = {}; // pane -> an agent working or a program in front of its shell
     this.ready = {}; // machine -> its layout was readable at the last look
     this.at = {}; // space -> its where() at the last look
-    this.watching = new Set(); // local repos' git folders
+    this.watching = new Map(); // local repos' pending folder watches
     // Spaces made while this runs wait (at most a moment) for their git, so a
     // worktree appears under its repo instead of jumping there.
     this.shown = new Set(spaces().map((s) => s.id));
     this.born = {};
     this.pressed = null;
     this.over = null;
+    this.scroll = ScrollHandle.new(); // the list's position: the active space is brought into view through it
+    this.activeAt = -1; // the active space's place among the list's children (headers and rows), -1 when not drawn
     this.machines = [];
-    this.reconnecting = JSON.parse(localStorage.getItem("machines.reconnecting") ?? "{}");
-    for (const state of Object.values(this.reconnecting)) state.busy = false;
-    this.folded = new Set(JSON.parse(localStorage.getItem("machines.folded") ?? "[]"));
-    const gh = shared("github") ?? {};
-    this.items = gh.items ?? {}; // url -> { kind, url, repo, number, title, state, at }
-    this.agentLinks = gh.agents ?? {}; // terminal -> PR urls its Claude session recorded
-    this.branchPrs = {}; // "owner/repo\0branch" -> { url, at }
-    this.published = JSON.stringify(gh);
-    this.claude = {}; // terminal -> { sid, working } at the last look
-    this.scanQueue = new Set();
-    this.stale = new Set(); // urls to ask GitHub about again now
-    this.ghRetry = 0;
+    try {
+      this.reconnecting = JSON.parse(localStorage.getItem("machines.reconnecting") ?? "{}");
+      if (!this.reconnecting || typeof this.reconnecting !== "object" || Array.isArray(this.reconnecting)) this.reconnecting = {};
+      for (const state of Object.values(this.reconnecting)) state.busy = false;
+    } catch { this.reconnecting = {}; }
+    try { this.folded = new Set(JSON.parse(localStorage.getItem("machines.folded") ?? "[]")); } catch { this.folded = new Set(); }
     this.refreshMachines(cx);
     cx.timer.every(15000, cx => this.refreshMachines(cx));
     // Refresh only when the refs could have changed (see `due`).
     cx.timer.every(250, (cx) => this.checkNew(cx));
-    cx.spawn(async () => {
-      for (;;) if ((await nextCommand()) === "link") openLinks(focused()?.space ?? spaces().find((s) => s.active)?.id);
-    });
+    extraInit(this, cx);
   }
 
   checkNew(cx) {
@@ -127,111 +121,8 @@ export default class Spaces extends View {
     const ps = panes();
     const due = this.due(now, sp, ps);
     if (due.size) this.refreshGit(due, cx);
-    this.claudeDue(cx);
-    this.githubDue(now, sp, ps, cx);
+    extraDue(this, now, sp, (s) => this.git[where(s, ps)], cx);
     if (sp.some((s) => !this.shown.has(s.id)) || this.orderingDue(now)) cx.notify();
-  }
-
-  // Claude sessions to read for PR links: new ones, and those whose turn just ended.
-  claudeDue(cx) {
-    const seen = {};
-    for (const t of terminals()) {
-      const sid = t.state === "live" && t.labels?.["claude.session"];
-      if (!sid) continue;
-      const working = t.status === "working";
-      const was = this.claude[t.address];
-      seen[t.address] = { sid, working };
-      if (!was || was.sid !== sid || (was.working && !working)) this.scanQueue.add(t.address);
-    }
-    this.claude = seen;
-    const gone = Object.keys(this.agentLinks).filter((address) => !seen[address]);
-    for (const address of gone) delete this.agentLinks[address];
-    if (gone.length) cx.notify();
-    if (!this.scanQueue.size || this.scanning) return;
-    this.scanning = true;
-    cx.spawn(async (cx) => {
-      while (this.scanQueue.size) {
-        const [address] = this.scanQueue;
-        this.scanQueue.delete(address);
-        const c = this.claude[address];
-        if (!c) continue;
-        try {
-          const urls = await scanAgent(c.sid, machineOf(address));
-          if (urls.length) this.agentLinks[address] = urls;
-          else delete this.agentLinks[address];
-          for (const url of urls) this.stale.add(url);
-        } catch {}
-      }
-      this.scanning = false;
-      cx.notify();
-    });
-  }
-
-  // The GitHub repo and branch a space's PR would be on: "owner/repo\0branch".
-  branchKey(s, ps) {
-    const g = this.git[where(s, ps)];
-    const branch = g?.gh && branchName(g.branch);
-    return branch ? `${g.gh}\0${branch}` : null;
-  }
-
-  githubDue(now, sp, ps, cx) {
-    if (this.fetching || now < this.ghRetry) return;
-    const active = window().active;
-    const old = (at, final) => active && now - (at ?? 0) > (final ? GH_FINAL : GH_OPEN);
-    const urls = [...new Set([...Object.values(shared("github.links") ?? {}).flat(), ...Object.values(this.agentLinks).flat()])]
-      .filter((u) => !this.items[u] || this.stale.has(u) || old(this.items[u].at, FINAL.has(this.items[u].state)));
-    const keys = [...new Set(sp.map((s) => this.branchKey(s, ps)).filter(Boolean))].filter((k) => !this.branchPrs[k] || old(this.branchPrs[k].at, false));
-    if (!urls.length && !keys.length) return;
-    this.fetching = true;
-    for (const u of urls) this.stale.delete(u);
-    cx.spawn(async (cx) => {
-      try {
-        const r = await fetchGitHub(urls, keys.map((key) => { const [repo, branch] = key.split("\0"); return { key, repo, branch }; }));
-        Object.assign(this.items, r.items);
-        for (const [k, url] of Object.entries(r.branches)) this.branchPrs[k] = { url, at: Date.now() };
-        if (!r.ok) this.ghRetry = Date.now() + GH_RETRY;
-      } catch {
-        this.ghRetry = Date.now() + GH_RETRY;
-      }
-      this.fetching = false;
-      cx.notify();
-    });
-  }
-
-  // What the other mods read: every linked item's state, agents' PRs and spaces'
-  // branch PRs. Written only when it changed; links and hidden ones of gone spaces
-  // are dropped once their machine's layout is in.
-  publish(sp, ps) {
-    const ids = new Set(sp.map((s) => s.id));
-    const ready = new Set(machines().filter((m) => m.layout === "ready").map((m) => m.name ?? null));
-    const prune = (key) => {
-      const all = shared(key) ?? {};
-      const kept = Object.fromEntries(Object.entries(all).filter(([id, urls]) => urls?.length && (ids.has(id) || !ready.has(machineOf(id)))));
-      if (Object.keys(kept).length !== Object.keys(all).length) setShared(key, kept);
-      return kept;
-    };
-    const kept = prune("github.links");
-    const hidden = prune("github.hidden");
-    const branches = {};
-    for (const s of sp) {
-      const k = this.branchKey(s, ps);
-      if (k && this.branchPrs[k]?.url) branches[s.id] = this.branchPrs[k].url;
-    }
-    const used = new Set([...Object.values(kept).flat(), ...Object.values(this.agentLinks).flat(), ...Object.values(branches)]);
-    for (const u of Object.keys(this.items)) if (!used.has(u)) delete this.items[u];
-    const gh = { items: this.items, agents: this.agentLinks, branches };
-    const text = JSON.stringify(gh);
-    if (text !== this.published) {
-      this.published = text;
-      setShared("github", gh);
-    }
-    // Each space's links: by hand, its branch's PR, its agents', less those hidden.
-    const as = agents();
-    this.links = new Map(sp.map((s) => {
-      const off = new Set(hidden[s.id] ?? []);
-      const auto = [branches[s.id], ...as.filter((a) => a.space === s.id).flatMap((a) => this.agentLinks[a.address] ?? [])].filter((u) => u && !off.has(u));
-      return [s.id, [...new Set([...(kept[s.id] ?? []), ...auto])]];
-    }));
   }
 
   // Places whose git could have changed: new ones (a new space, a cd), where a
@@ -242,6 +133,16 @@ export default class Spaces extends View {
     const at = {};
     for (const s of sp) at[s.id] = where(s, ps);
     const keys = new Set(Object.values(at).filter((k) => JSON.parse(k)[1]));
+    for (const k of Object.keys(this.git)) if (!keys.has(k)) {
+      delete this.git[k];
+      delete this.checked[k];
+      this.unsure.delete(k);
+    }
+    const repos = new Set(Object.values(this.git).filter(Boolean).map((g) => g.repo));
+    for (const [repo, pending] of this.watching) if (!repos.has(JSON.stringify([null, repo]))) {
+      this.watching.delete(repo);
+      pending.cancel();
+    }
     const due = new Set([...keys].filter((k) => !(k in this.git)));
     for (const [id, k] of Object.entries(at)) if (this.at[id] && this.at[id] !== k && keys.has(k)) due.add(k);
     this.at = at;
@@ -337,10 +238,11 @@ export default class Spaces extends View {
       while (this.pending.size) {
         const keys = [...this.pending];
         this.pending.clear();
-        await Promise.all(keys.map((key) => this.check(key, cx)));
+        let next = 0;
+        await Promise.all(Array.from({ length: Math.min(AT_ONCE, keys.length) }, async () => {
+          while (next < keys.length) await this.check(keys[next++], cx);
+        }));
       }
-      const used = new Set(Object.values(this.git).filter(Boolean).map((g) => JSON.parse(g.repo)).filter(([on]) => !on).map(([, repo]) => repo));
-      for (const repo of this.watching) if (!used.has(repo)) this.watching.delete(repo);
       this.refreshing = false;
       cx.notify();
     });
@@ -354,27 +256,28 @@ export default class Spaces extends View {
     try {
       // Ref-only reads avoid scanning the worktree or waking its index watch.
       // Two reads: a folder name may itself contain a newline.
-      const [r, common] = await Promise.all([
+      const [r, common] = await both(
         exec("git", ["rev-parse", "--path-format=absolute", "--show-toplevel"], { cwd, on }),
         exec("git", ["rev-parse", "--path-format=absolute", "--git-common-dir"], { cwd, on }),
-      ]);
+      );
       if (r.code !== 0 || common.code !== 0) {
         // Only git's own "no" is remembered as no repo; anything else is asked again.
-        if (!/not a git repository/i.test(r.code !== 0 ? r.stderr : common.stderr)) this.unsure.add(key);
-        this.git[key] = null;
+        if (!/not a git repository/i.test(r.code !== 0 ? r.stderr : common.stderr)) {
+          this.unsure.add(key);
+          this.git[key] ??= null;
+        } else this.git[key] = null;
         return;
       }
       // The repo's own .git folder names it; a worktree's top differs from it.
       const top = r.stdout.replace(/\n$/, ""), repo = common.stdout.replace(/\n$/, "");
-      const [branch, counts, origin] = await Promise.all([
+      const [branch, counts] = await both(
         exec("git", ["symbolic-ref", "-q", "HEAD"], { cwd, on }),
         exec("git", ["rev-list", "--left-right", "--count", "HEAD...@{upstream}"], { cwd, on }),
-        exec("git", ["remote", "get-url", "origin"], { cwd, on }),
-      ]);
-      const name = repo.endsWith("/.git") ? base(repo.slice(0, -5)) : base(repo).replace(/\.git$/, "");
+      );
+      const name = repoName(repo);
       const [ahead, behind] = counts.code === 0 ? counts.stdout.trim().split(/\s+/).map(Number) : [0, 0];
-      const bookmark = branch.code === 0 ? null : await bookmarkOf(cwd, on);
-      const info = { name, top, branch: bookmark ?? (branch.code === 0 ? branch.stdout.trim().replace(/^refs\/heads\//, "") : "(detached)"), ahead, behind, repo: JSON.stringify([on, repo]), linked: repo !== `${top}/.git`, gh: origin.code === 0 ? githubRepo(origin.stdout) : null };
+      const info = { name, branch: branch.code === 0 ? branch.stdout.trim().replace(/^refs\/heads\//, "") : "(detached)", ahead, behind, repo: JSON.stringify([on, repo]), linked: repo !== `${top}/.git` };
+      await extraGit(info, cwd, on, top, branch.code !== 0);
       this.git[key] = info;
       if (!on) this.watch(repo, cx);
     } catch {
@@ -386,15 +289,23 @@ export default class Spaces extends View {
 
   watch(repo, cx) {
     if (this.watching.has(repo)) return;
-    this.watching.add(repo);
+    const pending = watchFolder(repo);
+    this.watching.set(repo, pending);
     cx.spawn(async (cx) => {
+      let current = pending;
       try {
-        while (this.watching.has(repo)) {
-          await watchFolder(repo);
+        for (;;) {
+          await current;
+          if (this.watching.get(repo) !== current) return;
           const mine = JSON.stringify([null, repo]);
-          if (this.watching.has(repo)) this.refreshGit(Object.keys(this.git).filter((k) => this.git[k]?.repo === mine), cx);
+          const keys = Object.keys(this.git).filter((k) => this.git[k]?.repo === mine);
+          if (!keys.length) break;
+          this.refreshGit(keys, cx);
+          current = watchFolder(repo);
+          this.watching.set(repo, current);
         }
-      } catch { this.watching.delete(repo); }
+      } catch {}
+      if (this.watching.get(repo) === current) this.watching.delete(repo);
     });
   }
 
@@ -448,19 +359,14 @@ export default class Spaces extends View {
     return out.filter(r => this.shown.has(r.w.id));
   }
 
-  // Archived Claude sessions in a workspace, leaving out those in workspaces nested inside it.
-  archivedIn(path, nested = []) {
-    return (shared(ARCHIVE) ?? []).filter((r) => inside(r.cwd, path) && !nested.some((p) => inside(r.cwd, p))).length;
-  }
-
-  archiveBadge(count, t) {
-    return h_flex().flex_none().gap(3).items_center().text_size(11.5).text_color(t.dim).child(svg("mods/workspace-chrome/archive.svg").size(11)).child(String(count));
-  }
-
   // The rows, under a header per machine once one isn't this computer.
   grouped(t, collapsed) {
     const rows = this.ordered();
     const draw = (r) => (collapsed ? this.compact(r, t) : this.row(r, t));
+    // Where the active space's row lands among the children this returns: the list scrolls by its direct
+    // children, and machine headers, login notes and loading rows count too.
+    this.activeAt = -1;
+    let before = 0;
     const remote = [...new Set([...rows.map(r => r.w.machine).filter(Boolean), ...this.machines.map(m => m.name), ...Object.keys(this.reconnecting)])].sort();
     const loading = m => {
       const layout = machines().find(k => k.name === m)?.layout;
@@ -468,7 +374,11 @@ export default class Spaces extends View {
         || spaces().some(s => (s.machine ?? null) === m && !this.shown.has(s.id));
     };
     const loadingRow = m => h_flex().id(`machine-loading-${m ?? "local"}`).h(28).flex_none().px(collapsed ? 0 : 8).items_center().when(collapsed, el => el.justify_center()).text_size(12).text_color(t.dim).child(collapsed ? "…" : "Loading…");
-    if (!remote.length) return loading(null) && !rows.length ? [loadingRow(null)] : rows.map(draw);
+    if (!remote.length) {
+      if (loading(null) && !rows.length) return [loadingRow(null)];
+      this.activeAt = rows.findIndex(r => r.w.active);
+      return rows.map(draw);
+    }
     const machineNames = [null, ...remote];
     return machineNames.flatMap((m) => {
       const mine = rows.filter((r) => (r.w.machine ?? null) === m);
@@ -489,6 +399,9 @@ export default class Spaces extends View {
           localStorage.setItem("machines.folded", JSON.stringify([...this.folded]));
           cx.notify();
         })
+        .when(machine?.keeps_running_after_logout === false, el => el.child(div().id(`machine-logout-${m}`)
+          .flex_none().text_color(t.blocked).tooltip("Agents stop when you disconnect. Click for the fix.")
+          .on_click((_e, cx) => { cx.stop_propagation(); openOverlay({ mod: "machine-add", kind: "dialog", width: 560 }); }).child("⚠")))
         .when(!collapsed, el => el.child(icon))
         .when(collapsed, el => el.child(div().relative().flex_none().child(icon).when(Boolean(m), el => el.child(badge))))
         .when(!collapsed, el => el.child(div().flex_1().truncate().child(m ?? "This computer"))
@@ -511,7 +424,7 @@ export default class Spaces extends View {
           .child(h_flex().size(18).rounded(5).border_1().border_color(t.dim).items_center().justify_center()
             .child(svg("mods/workspace-chrome/plus.svg").size(10))))
         .when(!collapsed, el => el.child(svg("mods/workspace-chrome/plus.svg").size(12)).child("New space there"));
-      if (!collapsed && rebuilt) return [head];
+      if (!collapsed && rebuilt) { before += 1; return [head]; }
       const cell = collapsed ? railCell : (el) => el;
       const guidance = !collapsed && login ? [v_flex().px(8).pb(6).gap(3).flex_none()
         .child(div().text_size(11).text_color(t.blocked).child("needs a login: run"))
@@ -521,22 +434,33 @@ export default class Spaces extends View {
             .text_size(11).text_color(t.foreground).bg(t.raised).cursor_pointer().hover(s => s.bg(t.hover))
             .on_click((_e, cx) => { cx.stop_propagation(); cx.write_to_clipboard(login); this.copiedLogin = login; cx.notify(); })
             .child(this.copiedLogin === login ? "Copied" : "Copy")))] : [];
-      return [cell(head), ...guidance, ...(folded ? [] : mine.length ? mine.map(draw) : [loading(m) ? loadingRow(m) : cell(empty)])];
+      const items = [cell(head), ...guidance, ...(folded ? [] : mine.length ? mine.map(draw) : [loading(m) ? loadingRow(m) : cell(empty)])];
+      const first = folded ? -1 : mine.findIndex(r => r.w.active);
+      if (first >= 0) this.activeAt = before + 1 + guidance.length + first;
+      before += items.length;
+      return items;
     });
   }
 
   // Only what's unusual, after the name: "herdr \u00b7 spike \u21912 \u21931". The repo or
   // branch goes when the name already says it (a worktree is named after its branch),
-  // and master/main go: nearly every space is on one.
+  // and master/main go: nearly every space is on one. When the row is full, it
+  // and the name both start from their text's width and give way in proportion.
   gitTail(g, tree, name, t) {
     const raw = g.branch ?? "detached";
-    const same = (a) => a.toLowerCase() === name.toLowerCase();
+    const fullName = name.toLowerCase();
+    const emoji = EMOJI.exec(name)?.[0];
+    const label = emoji ? name.slice(emoji.length).trim().toLowerCase() : fullName;
+    const same = (a) => {
+      const text = a.toLowerCase();
+      return text === fullName || text === label;
+    };
     const branch = same(raw) || raw === "master" || raw === "main" ? "" : raw;
     const repo = tree || same(g.name) ? "" : g.name;
     const where = [repo, branch].filter(Boolean).join(" \u00b7 ");
     return h_flex()
-      .flex_1()
-      .min_w(0)
+      .flex_auto()
+      .min_w(where ? SIDE_MIN : 0)
       .gap(5)
       .justify_end()
       .items_center()
@@ -597,15 +521,11 @@ export default class Spaces extends View {
         h_flex()
           .gap(9)
           .items_center()
-          .when(Boolean(tree), el => el.pl(22).child(svg("mods/workspace-chrome/branch.svg").size(13).text_color(t.dim)))
-          .when(!tree, el => el.child(h_flex().size(18).flex_none().rounded(5).bg(fill).items_center().justify_center().text_size(10.5).font_bold().text_color("#ffffff").child([...w.name][0]?.toUpperCase() ?? "?")))
-          .child(div().flex_shrink(1).min_w(48).max_w(150).truncate().text_color(t.foreground).child(w.name))
+          .when(Boolean(tree), el => el.pl(22).child(svg("mods/workspace-chrome/branch.svg").size(13).flex_none().text_color(t.dim)))
+          .when(!tree, el => el.child(h_flex().size(18).flex_none().rounded(5).bg(fill).items_center().justify_center().text_size(10.5).font_bold().text_color("#ffffff").child(spaceAvatar(w.name))))
+          .child(div().flex_initial().min_w(SIDE_MIN).truncate().text_color(t.foreground).child(w.name))
           .child(g ? this.gitTail(g, tree, w.name, t) : div().flex_1())
-          .when(this.links?.get(w.id)?.length > 0, (el) => el.child(badges(this.links.get(w.id), this.items, t, `gh-${w.id}`, 3)))
-          .when(Boolean(g?.top), (el) => {
-            const count = this.archivedIn(g.top, tree ? [] : Object.values(this.git).filter((k) => k?.linked && k.repo === g.repo).map((k) => k.top));
-            return count > 0 ? el.child(this.archiveBadge(count, t)) : el;
-          }),
+          .children(extraBadges(this, w, g, tree, t)),
       );
   }
 
@@ -641,15 +561,26 @@ export default class Spaces extends View {
       changed = true;
     }
     if (changed) setShared("space.colors", kept);
-    this.publish(sp, panes());
+    const ps = panes();
+    extraPublish(this, sp, (s) => this.git[where(s, ps)]);
+    const list = this.grouped(t, collapsed);
+    // Bring the active space into view when it, or its place in the list, changes; a row already in view stays put.
+    const active = sp.find(p => p.active)?.id;
+    if (active !== this.revealed || this.activeAt !== this.revealedAt) {
+      this.revealed = active;
+      this.revealedAt = this.activeAt;
+      if (this.activeAt >= 0) this.scroll.scroll_to_item(this.activeAt);
+    }
     return v_flex().size_full().min_h(0).bg(t.chrome).text_size(13)
       .child(h_flex().h(31).pl(16).pr(10).items_center().justify_between().text_size(11.5).text_color(t.dim)
         .when(collapsed, el => el.pl(0).pr(0).justify_center())
         .when(!collapsed, el => el.child("Spaces"))
         .child(div().id("space-new").size(26).flex_none().flex().items_center().justify_center().rounded(6).hover(s => s.bg(t.hover).text_color(t.foreground))
           .on_click(() => run("space.new")).child(svg("mods/workspace-chrome/plus.svg").size(14))))
-      .child(v_flex().flex_1().min_h(0).px(collapsed ? 0 : 8).pb(14).overflow_y_scrollbar().mode("always")
+      .child(v_flex().flex_1().min_h(0).px(collapsed ? 0 : 8).pb(14).overflow_y_scrollbar().mode("always").track_scroll(this.scroll)
+        // A block above (another mod's) growing, or the window resizing, shrinks this list and can push the active space out.
+        .on_size_change((_size, cx) => { if (this.activeAt >= 0) { this.scroll.scroll_to_item(this.activeAt); cx.notify(); } })
         .on_mouse_up("left", (_e, cx) => { this.pressed = null; cx.notify(); })
-        .children(this.grouped(t, collapsed)));
+        .children(list));
   }
 }
