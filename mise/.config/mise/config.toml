@@ -1,5 +1,6 @@
 [tools]
 "aqua:opentofu/tofu-ls" = "latest"
+"github:gruntwork-io/terragrunt-ls" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "npm:@vtsls/language-server" = "latest"
 "npm:vscode-langservers-extracted" = "latest"
