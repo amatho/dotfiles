@@ -164,8 +164,10 @@ format = '\[[$symbol$number]($style)\]'
 
 [jj_bookmark]
 format = '\[[$symbol$bookmark(@$remote)$diverged( \\(+$overflow_count others\\))]($style)\]'
+symbol = ''
 
 [jj_change]
+disabled = true
 format = '\[$change\]'
 
 [jj_metrics]
