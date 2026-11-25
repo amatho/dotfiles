@@ -29,4 +29,5 @@ I generally use [Jujutsu (`jj`)](https://jj-vcs.github.io/jj/) for version contr
 Notes:
 - `jj` uses **bookmarks** rather than git-style branches; remote interaction goes through `jj git push` / `jj git fetch`.
 - Don't auto-commit or push unless I ask. When I do ask, use the `jj` equivalents above.
+- Don't add any trailers (e.g. `Co-Authored-By:`, `Claude-Session:`) to commit messages you write.
 - If a repo turns out to be git-only (no `.jj` directory), fall back to git.
