@@ -70,7 +70,12 @@ abbr -a jspr jj spr
 abbr -a jsq jj squash
 abbr -a jst jj st
 
+abbr -a tf tofu
 abbr -a tfa tofu apply
 abbr -a tfi tofu init
 abbr -a tfp tofu plan
-abbr -a tf tofu
+abbr -a tg terragrunt run -a
+abbr -a tga terragrunt run -a apply
+abbr -a --set-cursor tgaf terragrunt run -a --filter % apply
+abbr -a tgp terragrunt run -a plan
+abbr -a --set-cursor tgpf terragrunt run -a --filter % plan
